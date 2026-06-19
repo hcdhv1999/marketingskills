@@ -7,7 +7,6 @@ import IdentityPricing from "@/components/IdentityPricing";
 import SelectedDesigns from "@/components/SelectedDesigns";
 import Ecommerce from "@/components/Ecommerce";
 import Social from "@/components/Social";
-import Ads from "@/components/Ads";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import WhyUs from "@/components/WhyUs";
@@ -42,8 +41,6 @@ export default function Home() {
       <Ecommerce />
       <Divider />
       <Social />
-      <Divider />
-      <Ads />
 
       <Testimonials />
       <Divider />
