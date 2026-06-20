@@ -52,17 +52,27 @@ deliberately avoided.
 
 ## The journey
 
-| Act | Scenes | What happens |
-|-----|--------|--------------|
-| **A — Story** (concise) | كل مشروع يبدأ بفكرة → كل هوية تبدأ بحِرف → نبني متجرك → ثم نساعده على النمو | An idea ember grows; a brand forms; a glass store builds itself; sales/revenue rise. |
-| **B — Transformation** | worlds operate → connect → merge → collapse to core → logo reveal | The four crafts fuse into a single core that becomes the Hiraf logo. |
-| **Services** | حِرَفنا الأربع | The four services as the stars, surfaced right after the story. |
-| **C — Conversion** | من أين تبدأ رحلتك؟ | Interactive gateways; selecting one reveals its packages in place — no reload. |
-| **Proof** | Portfolio + trust | Generative tiles and count-up indicators. |
-| **Finale** | كل صنعة لها حِرف | Teal close, massive logo, primary + secondary CTAs. |
+| Section | Arabic | What happens |
+|---------|--------|--------------|
+| **A — Story** (short) | كل مشروع يبدأ بفكرة → بحِرف → نبني متجرك → النمو | Idea ember grows into a brand, then a live store, then growth. The first screen leads with **نبني متاجر إلكترونية تبيع** + e-commerce chips (متاجر · منتجات · طلبات · مدفوعات · مبيعات). |
+| **B — Transformation** (short) | التحوّل → الإتقان | The four crafts fuse into a core that becomes the Hiraf logo. |
+| **Services + Packages** | خدماتنا | The **four services are the stars** — large interactive cards; selecting one reveals its packages **in place**, and store pricing is shown by default (no extra scrolls). |
+| **Why Hiraf** | لماذا حِرف؟ | Premium cards (حلول متكاملة · تنفيذ احترافي · دعم ومتابعة · نتائج قابلة للقياس) + stats (+30 عميل · 98% رضا · +10 تصميم · +5 متاجر). |
+| **Reviews** | آراء عملائنا | Auto-sliding glassmorphism testimonials, RTL. |
+| **About** | من نحن | Compact agency statement. |
+| **Portfolio** | أعمالنا | Generative work tiles. |
+| **Finale** | كل صنعة لها حِرف | Teal close, massive logo, WhatsApp + contact CTAs. |
 
-Scene scroll lengths and section padding were tightened ~40–50% from the first concept to
-remove empty space and reach the offerings faster.
+The two cinematic acts were halved and section spacing tightened to reach the offerings
+fast and keep the page compact and conversion-focused.
+
+## Conversion & contact
+
+- **Floating WhatsApp** button on every page → `+966506039366` (official icon).
+- Every package CTA opens a prefilled **WhatsApp** order message.
+- Footer nav: الرئيسية · الخدمات · الباقات · أعمالنا · من نحن · سياسة الدفع · سياسة الخصوصية · تواصل معنا.
+- Contact: `byhirf@gmail.com` · `+966506039366`.
+- Standalone policy pages: `payment-policy.html`, `privacy-policy.html` (linked in footer).
 
 ## Customizing
 

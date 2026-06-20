@@ -256,8 +256,92 @@ h1,h2,h3,h4,.brandtxt{font-family:var(--font-brand)}
 .btn.ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2);color:#fff}
 .btn.ghost:hover{background:rgba(255,255,255,.11);transform:translateY(-3px)}
 
-footer{padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;
-  border-top:1px solid rgba(255,255,255,.05)}
+/* ---- Hero e-commerce signal ---- */
+.hero-badge{display:inline-block;font-family:var(--font-brand);font-weight:700;font-size:13px;
+  color:var(--accent-soft);background:rgba(216,137,53,.12);border:1px solid rgba(216,137,53,.3);
+  border-radius:30px;padding:6px 16px;margin-bottom:14px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+.hero-chips span{font-size:13px;color:var(--ink);background:rgba(46,79,79,.4);
+  border:1px solid var(--glass-brd);border-radius:30px;padding:6px 13px;backdrop-filter:blur(6px)}
+
+/* ---- Larger, prominent, interactive services ---- */
+.section{padding:clamp(34px,6vh,62px) 22px}
+.services{grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.svc{position:relative;border-radius:20px;padding:30px 22px;cursor:pointer;text-align:center;overflow:hidden;
+  background:linear-gradient(165deg,rgba(46,79,79,.46),rgba(15,24,23,.6));
+  border:1px solid var(--glass-brd);transition:transform .4s var(--ease),border-color .4s,box-shadow .4s}
+.svc::before{content:"";position:absolute;inset:-1px;border-radius:20px;opacity:0;transition:opacity .4s;
+  background:radial-gradient(320px 220px at var(--mx,50%) var(--my,30%),rgba(216,137,53,.2),transparent 60%)}
+.svc:hover{transform:translateY(-7px);border-color:rgba(216,137,53,.45);box-shadow:0 28px 60px rgba(8,16,15,.55)}
+.svc:hover::before{opacity:1}
+.svc .ic{font-size:42px;filter:drop-shadow(0 8px 16px rgba(216,137,53,.32))}
+.svc h3{font-size:clamp(17px,1.8vw,21px);margin:14px 0 8px;font-weight:800;line-height:1.4}
+.svc p{color:var(--muted);font-size:14px;line-height:1.6}
+.svc .svc-cta{display:inline-block;margin-top:14px;font-family:var(--font-brand);font-weight:700;
+  font-size:13px;color:var(--accent-soft)}
+.svc .svc-pick{position:absolute;top:14px;left:14px;font-family:var(--font-brand);font-size:11px;font-weight:700;
+  color:var(--accent-soft);border:1px solid rgba(216,137,53,.4);border-radius:30px;padding:3px 10px;opacity:0;transition:opacity .35s}
+.svc.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 28px 60px rgba(8,16,15,.6);transform:translateY(-7px)}
+.svc.active .svc-pick{opacity:1}
+.svc.active .ic{transform:scale(1.06)}
+
+/* ---- Packages header ---- */
+.pkg-head{text-align:center;margin-top:30px;scroll-margin-top:80px}
+.pkg-eyebrow{font-family:var(--font-brand);font-weight:800;font-size:clamp(18px,2.4vw,24px);color:#fff}
+
+/* ---- Why Hiraf ---- */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.why-card{border-radius:18px;padding:24px 20px;text-align:center;
+  background:linear-gradient(165deg,rgba(46,79,79,.4),rgba(15,24,23,.55));
+  border:1px solid var(--glass-brd);transition:transform .4s var(--ease),border-color .4s}
+.why-card:hover{transform:translateY(-5px);border-color:rgba(216,137,53,.4)}
+.why-card .ic{font-size:30px}
+.why-card h3{font-size:17px;font-weight:800;margin:12px 0 6px}
+.why-card p{color:var(--muted);font-size:13px;line-height:1.6}
+
+/* ---- Reviews slider ---- */
+.reviews-vp{overflow:hidden;margin-top:26px;border-radius:18px}
+.reviews-track{display:flex;transition:transform .7s var(--ease)}
+.rev-card{min-width:100%;box-sizing:border-box;padding:30px;border-radius:18px;
+  background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(12px) saturate(130%)}
+.rev-q{font-size:clamp(16px,2.1vw,20px);line-height:1.9;color:var(--ink)}
+.rev-who{display:flex;align-items:center;gap:12px;margin-top:20px}
+.rev-av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-brand);
+  font-weight:800;color:#fff;background:linear-gradient(135deg,var(--accent),var(--primary-soft))}
+.rev-who b{font-family:var(--font-brand);font-weight:700;color:#fff;display:block}
+.rev-who span{color:var(--muted);font-size:13px}
+.reviews-dots{display:flex;gap:8px;justify-content:center;margin-top:16px}
+.reviews-dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}
+.reviews-dots i.on{background:var(--accent);width:24px;border-radius:6px}
+
+/* ---- About (compact) ---- */
+.about-card{max-width:820px;margin:0 auto;border-radius:20px;padding:30px;
+  background:linear-gradient(165deg,rgba(46,79,79,.4),rgba(15,24,23,.55));border:1px solid var(--glass-brd)}
+.about-card p{color:#cdd9d4;font-size:clamp(15px,1.9vw,18px);line-height:2;margin-top:10px}
+
+/* ---- Footer ---- */
+footer{padding:34px 22px 26px;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,.06);
+  background:linear-gradient(180deg,transparent,rgba(46,79,79,.12))}
+.foot-grid{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
+.foot-brand .mark{font-size:22px;color:#fff;display:flex;gap:8px;align-items:center}
+.foot-brand .mark .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.foot-brand p{margin-top:8px;max-width:240px}
+.foot-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
+.foot-nav a{color:var(--muted);text-decoration:none;transition:color .3s}
+.foot-nav a:hover{color:var(--accent-soft)}
+.foot-contact{display:flex;flex-direction:column;gap:8px}
+.foot-contact a{color:#fff;text-decoration:none;font-family:var(--font-brand);font-weight:500}
+.foot-contact a:hover{color:var(--accent-soft)}
+.foot-bottom{text-align:center;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.05)}
+
+/* ---- Floating WhatsApp ---- */
+.wa-float{position:fixed;bottom:22px;right:22px;z-index:300;width:58px;height:58px;border-radius:50%;
+  background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);
+  transition:transform .3s var(--ease),box-shadow .3s}
+.wa-float:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 16px 40px rgba(37,211,102,.6)}
+.wa-float::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;
+  animation:waPing 2.2s var(--ease) infinite}
+@keyframes waPing{0%{transform:scale(1);opacity:.6}70%,100%{transform:scale(1.6);opacity:0}}
 
 .hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:120;
   color:var(--muted);font-size:12px;letter-spacing:.26em;display:flex;flex-direction:column;
@@ -267,12 +351,14 @@ footer{padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;
   background:var(--accent);transform:translateX(-50%);animation:wheel 1.6s var(--ease) infinite}
 @keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,11px)}}
 
-@media(max-width:900px){.services{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.services,.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:860px){
-  .gates{grid-template-columns:1fr}.packages{grid-template-columns:1fr}
-  .work{grid-template-columns:1fr}.panel{transform:scale(.82)}
+  .packages{grid-template-columns:1fr}.work{grid-template-columns:1fr}.panel{transform:scale(.82)}
+  .foot-grid{flex-direction:column;gap:18px}
+  .hero-chips span{font-size:12px;padding:5px 11px}
 }
-@media(prefers-reduced-motion:reduce){.tile::after,.boot-spark{animation:none}}
+@media(max-width:520px){.services,.why-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.tile::after,.boot-spark,.wa-float::after{animation:none}}
 </style>
 </head>
 <body>
@@ -297,21 +383,25 @@ footer{padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;
 
   <!-- ACT A : IDEA → BRAND → STORE → GROWTH (concise) -->
   <section class="act" id="actStory">
-    <div class="scroller" style="--len:360vh"></div>
+    <div class="scroller" style="--len:180vh"></div>
     <div class="pin">
       <canvas class="stagecanvas" id="storyCanvas"></canvas>
       <div id="storyUI" style="position:absolute;inset:0;pointer-events:none"></div>
       <div class="center">
+        <div class="hero-badge">نبني متاجر إلكترونية تبيع 🛒</div>
         <div class="kicker" id="storyKicker">المرحلة الأولى</div>
         <h1 class="headline" id="storyHead">كل مشروع يبدأ <span class="glow">بفكرة</span></h1>
         <p class="sub" id="storySub">في البداية... مجرّد ومضة في الظلام.</p>
+        <div class="hero-chips">
+          <span>🏬 متاجر</span><span>📦 منتجات</span><span>🧾 طلبات</span><span>💳 مدفوعات</span><span>📈 مبيعات</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ACT B : FOUR WORLDS → MERGE → CORE → LOGO -->
   <section class="act" id="actMerge">
-    <div class="scroller" style="--len:340vh"></div>
+    <div class="scroller" style="--len:170vh"></div>
     <div class="pin">
       <canvas class="stagecanvas" id="mergeCanvas"></canvas>
       <div class="center">
@@ -324,74 +414,78 @@ footer{padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;
 
 </main>
 
-<!-- THE FOUR SERVICES — the stars, surfaced early -->
+<!-- SERVICES (the four stars) + PACKAGES surfaced immediately -->
 <section class="section" id="services">
-  <div class="eyebrow beat">حِرَفنا الأربع</div>
+  <div class="eyebrow beat">خدماتنا</div>
   <h2 class="h2 beat">أربع حِرَف تصنع حضورك الرقمي</h2>
-  <p class="lead beat">كل خدمة صنعة قائمة بذاتها، ومعاً يكتمل مشروعك.</p>
-  <div class="services">
-    <div class="svc beat"><div class="ic">🛒</div><h3>تأسيس وتصميم المتاجر الإلكترونية</h3><p>متجر متكامل جاهز للبيع والدفع والشحن.</p><div class="line"></div></div>
-    <div class="svc beat"><div class="ic">🎨</div><h3>التصميم الجرافيكي</h3><p>هوية بصرية وتصاميم تمنح علامتك حضوراً.</p><div class="line"></div></div>
-    <div class="svc beat"><div class="ic">📢</div><h3>الحملات الممولة</h3><p>إعلانات مدروسة تصل للعميل المناسب وتحقق نتائج.</p><div class="line"></div></div>
-    <div class="svc beat"><div class="ic">📱</div><h3>إدارة الحسابات</h3><p>إدارة احترافية ومحتوى مستمر لجمهورك.</p><div class="line"></div></div>
-  </div>
-</section>
-
-<!-- GATEWAYS / CONVERSION -->
-<section class="section" id="convert" style="padding-top:0">
-  <div class="eyebrow beat">ابدأ رحلتك</div>
-  <h2 class="h2 beat">من أين تبدأ رحلتك؟</h2>
-  <p class="lead beat">اختر المرحلة التي يحتاجها مشروعك الآن، وسنقودك إلى الخطوة التالية.</p>
-
-  <div class="gates" id="gates">
-    <div class="gate beat" data-key="store">
-      <span class="pick">المسار المختار ✓</span>
-      <span class="svc-tag">تأسيس وتصميم المتاجر الإلكترونية</span>
-      <div class="gico">🛒</div>
-      <h3>أريد تأسيس متجر إلكتروني</h3>
-      <p>من الفكرة إلى متجر جاهز للبيع والدفع والشحن.</p>
-      <div class="viz"><i>📦</i><i>💳</i><i>🚚</i></div>
+  <p class="lead beat">اختر خدمتك، وستظهر الباقات والأسعار مباشرة بالأسفل.</p>
+  <div class="services" id="svcGrid">
+    <div class="svc beat active" data-key="store">
+      <span class="svc-pick">مُختار ✓</span><div class="ic">🛒</div>
+      <h3>تأسيس وتصميم المتاجر الإلكترونية</h3>
+      <p>متجر متكامل جاهز للبيع والدفع والشحن.</p><span class="svc-cta">عرض الباقات ↓</span>
     </div>
-    <div class="gate beat" data-key="design">
-      <span class="pick">المسار المختار ✓</span>
-      <span class="svc-tag">التصميم الجرافيكي</span>
-      <div class="gico">🎨</div>
-      <h3>أريد بناء هوية احترافية</h3>
-      <p>شعار وهوية بصرية تمنح مشروعك حضوراً يليق به.</p>
-      <div class="viz"><i>✏️</i><i>🎯</i><i>🅰️</i></div>
+    <div class="svc beat" data-key="design">
+      <span class="svc-pick">مُختار ✓</span><div class="ic">🎨</div>
+      <h3>التصميم الجرافيكي</h3>
+      <p>هوية بصرية وتصاميم تمنح علامتك حضوراً يليق بها.</p><span class="svc-cta">عرض الباقات ↓</span>
     </div>
-    <div class="gate beat" data-key="ads">
-      <span class="pick">المسار المختار ✓</span>
-      <span class="svc-tag">الحملات الممولة</span>
-      <div class="gico">📢</div>
-      <h3>أريد تحقيق مبيعات أكثر</h3>
-      <p>حملات مدروسة تستهدف العملاء المناسبين وتحقق نتائج فعلية.</p>
-      <div class="viz"><i>📈</i><i>🎯</i><i>💰</i></div>
+    <div class="svc beat" data-key="ads">
+      <span class="svc-pick">مُختار ✓</span><div class="ic">📢</div>
+      <h3>الحملات الممولة</h3>
+      <p>إعلانات مدروسة تصل للعميل المناسب وتحقق مبيعات فعلية.</p><span class="svc-cta">عرض الباقات ↓</span>
     </div>
-    <div class="gate beat" data-key="social">
-      <span class="pick">المسار المختار ✓</span>
-      <span class="svc-tag">إدارة الحسابات</span>
-      <div class="gico">📱</div>
-      <h3>أريد إدارة حضوري الرقمي</h3>
-      <p>إدارة احترافية لحساباتك وصناعة محتوى مستمر لجمهورك.</p>
-      <div class="viz"><i>🗓️</i><i>💬</i><i>❤️</i></div>
+    <div class="svc beat" data-key="social">
+      <span class="svc-pick">مُختار ✓</span><div class="ic">📱</div>
+      <h3>إدارة الحسابات</h3>
+      <p>إدارة احترافية ومحتوى مستمر لجمهورك على المنصات.</p><span class="svc-cta">عرض الباقات ↓</span>
     </div>
   </div>
 
-  <div class="packages" id="packages"></div>
+  <div class="pkg-head beat" id="packages-anchor"><span class="pkg-eyebrow" id="pkgEyebrow">باقات المتاجر الإلكترونية</span></div>
+  <div class="packages open" id="packages"></div>
 </section>
 
-<!-- PORTFOLIO + TRUST -->
+<!-- WHY HIRAF -->
+<section class="section" id="why" style="padding-top:0">
+  <div class="eyebrow beat">لماذا نحن</div>
+  <h2 class="h2 beat">لماذا حِرف؟</h2>
+  <div class="why-grid">
+    <div class="why-card beat"><div class="ic">🧩</div><h3>حلول متكاملة</h3><p>من الهوية إلى المتجر إلى الحملات تحت سقف واحد.</p></div>
+    <div class="why-card beat"><div class="ic">🛠️</div><h3>تنفيذ احترافي</h3><p>فريق متخصص ينفّذ بإتقان وتفاصيل لا تُهمَل.</p></div>
+    <div class="why-card beat"><div class="ic">🤝</div><h3>دعم ومتابعة</h3><p>نرافقك بعد الإطلاق ونتابع نمو مشروعك.</p></div>
+    <div class="why-card beat"><div class="ic">📊</div><h3>نتائج قابلة للقياس</h3><p>قرارات مبنية على أرقام ومبيعات حقيقية.</p></div>
+  </div>
+  <div class="trust">
+    <div class="t beat"><b id="c1">0</b><span>عميل</span></div>
+    <div class="t beat"><b id="c2">0</b><span>رضا العملاء</span></div>
+    <div class="t beat"><b id="c3">0</b><span>مشاريع تصميم</span></div>
+    <div class="t beat"><b id="c4">0</b><span>متاجر إلكترونية</span></div>
+  </div>
+</section>
+
+<!-- CLIENT REVIEWS -->
+<section class="section" id="reviews" style="padding-top:0">
+  <div class="eyebrow beat">آراء عملائنا</div>
+  <h2 class="h2 beat">ماذا قالوا عن حِرف</h2>
+  <div class="reviews-vp"><div class="reviews-track" id="revTrack"></div></div>
+  <div class="reviews-dots" id="revDots"></div>
+</section>
+
+<!-- ABOUT (compact) -->
+<section class="section" id="about" style="padding-top:0">
+  <div class="about-card beat">
+    <div class="eyebrow" style="text-align:right">من نحن</div>
+    <h2 class="h2" style="text-align:right;font-size:clamp(22px,3.4vw,34px)">حِرف</h2>
+    <p>حِرف وكالة إبداعية متخصصة في بناء الهويات البصرية وتأسيس المتاجر الإلكترونية وإدارة العلامات التجارية الرقمية. نؤمن أن كل مشروع يستحق هوية فريدة تعكس جوهره وتميّزه في السوق.</p>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
 <section class="section" id="proof" style="padding-top:0">
   <div class="eyebrow beat">أعمالنا</div>
   <h2 class="h2 beat">صنعنا حضوراً يُذكر</h2>
   <div class="work" id="work"></div>
-  <div class="trust">
-    <div class="t beat"><b id="c1">0</b><span>مشروع رقمي</span></div>
-    <div class="t beat"><b id="c2">0</b><span>متجر إلكتروني</span></div>
-    <div class="t beat"><b id="c3">0</b><span>مليون ريال مبيعات للعملاء</span></div>
-    <div class="t beat"><b id="c4">0</b><span>رضا العملاء ٪</span></div>
-  </div>
 </section>
 
 <!-- FINALE -->
@@ -402,15 +496,40 @@ footer{padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;
     <div class="fline beat">كل صنعة لها حِرف</div>
     <p class="ftext beat">من الفكرة الأولى وحتى النمو...<br/>نبني حضورك الرقمي خطوة بخطوة.</p>
     <div class="cta-row">
-      <a class="btn primary beat" href="#convert">ابدأ مشروعك الآن</a>
-      <a class="btn ghost beat" href="#contact" id="contactBtn">تواصل معنا</a>
+      <a class="btn primary beat" href="https://wa.me/966506039366?text=مرحباً%20حِرف،%20أرغب%20في%20بدء%20مشروعي" target="_blank" rel="noopener">ابدأ مشروعك الآن</a>
+      <a class="btn ghost beat" href="#contact">تواصل معنا</a>
     </div>
   </div>
 </section>
 
 <footer id="contact">
-  حِرف — وكالة رقمية سعودية · كل صنعة لها حِرف · © <span id="yr"></span>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div class="mark brandtxt"><span class="dot"></span>حِرف</div>
+      <p>وكالة رقمية سعودية · كل صنعة لها حِرف</p>
+    </div>
+    <nav class="foot-nav">
+      <a href="#top">الرئيسية</a>
+      <a href="#services">الخدمات</a>
+      <a href="#packages-anchor">الباقات</a>
+      <a href="#proof">أعمالنا</a>
+      <a href="#about">من نحن</a>
+      <a href="payment-policy.html">سياسة الدفع</a>
+      <a href="privacy-policy.html">سياسة الخصوصية</a>
+      <a href="https://wa.me/966506039366" target="_blank" rel="noopener">تواصل معنا</a>
+    </nav>
+    <div class="foot-contact">
+      <a href="mailto:byhirf@gmail.com">byhirf@gmail.com</a>
+      <a href="tel:+966506039366" dir="ltr">+966 50 603 9366</a>
+    </div>
+  </div>
+  <div class="foot-bottom">© <span id="yr"></span> حِرف · جميع الحقوق محفوظة</div>
 </footer>
+
+<!-- Floating WhatsApp -->
+<a class="wa-float" href="https://wa.me/966506039366?text=مرحباً%20حِرف،%20لدي%20استفسار" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
+  <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="#fff" d="M16.04 4C9.96 4 5.02 8.94 5.02 15.02c0 1.94.51 3.84 1.48 5.52L4.9 27l6.62-1.56a11 11 0 0 0 4.52.97h.01c6.08 0 11.02-4.94 11.02-11.02C27.07 8.94 22.12 4 16.04 4Zm0 20.18h-.01a9.15 9.15 0 0 1-4.66-1.28l-.33-.2-3.93.93.94-3.83-.22-.34a9.13 9.13 0 0 1-1.4-4.86c0-5.05 4.11-9.16 9.17-9.16 2.45 0 4.75.96 6.48 2.69a9.1 9.1 0 0 1 2.68 6.48c0 5.05-4.11 9.15-9.16 9.15Zm5.02-6.85c-.27-.14-1.63-.8-1.88-.9-.25-.09-.43-.14-.62.14-.18.27-.71.9-.87 1.08-.16.18-.32.2-.59.07-.27-.14-1.16-.43-2.2-1.36-.81-.72-1.36-1.62-1.52-1.89-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.46-.62-.47l-.53-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.66 1.12 2.84.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.26.18 1.73.11.53-.08 1.63-.67 1.86-1.31.23-.64.23-1.19.16-1.31-.07-.12-.25-.18-.52-.32Z"/></svg>
+</a>
 
 <script>
 const $=(s,c=document)=>c.querySelector(s);
@@ -440,7 +559,7 @@ window.addEventListener('load',()=>setTimeout(()=>$('#boot').classList.add('gone
 /* Ambient particles (warm) */
 (function ambient(){
   const cv=$('#ambient');let s=fitCanvas(cv);let parts=[];
-  const N=reduce?0:Math.min(70,Math.floor(s.w*s.h/20000));
+  const N=reduce?0:Math.min(34,Math.floor(s.w*s.h/40000));
   for(let i=0;i<N;i++)parts.push({x:Math.random()*s.w,y:Math.random()*s.h,
     z:Math.random()*1+.2,r:Math.random()*1.5+.3,vy:Math.random()*.22+.04});
   function draw(){const {ctx,w,h}=s;ctx.clearRect(0,0,w,h);
@@ -519,9 +638,9 @@ function drawStory(){
   lg.addColorStop(0,hexA(ACCENT,.18+grow*.1));lg.addColorStop(.6,hexA(TEAL,.12));
   lg.addColorStop(1,'rgba(15,24,23,0)');ctx.fillStyle=lg;ctx.fillRect(0,0,w,h);
 
-  // orbiting spark
-  for(let i=0;i<40;i++){const ang=(i/40)*Math.PI*2+t*.4;const rr=coreR*(1.4+Math.sin(t*1.3+i)*.15);
-    ctx.beginPath();ctx.fillStyle=hexA(ACCENTS,.45*(1-A*.4));ctx.arc(cx+Math.cos(ang)*rr,cy+Math.sin(ang)*rr,1.5,0,7);ctx.fill();}
+  // orbiting spark (reduced)
+  for(let i=0;i<20;i++){const ang=(i/20)*Math.PI*2+t*.4;const rr=coreR*(1.4+Math.sin(t*1.3+i)*.15);
+    ctx.beginPath();ctx.fillStyle=hexA(ACCENTS,.4*(1-A*.5));ctx.arc(cx+Math.cos(ang)*rr,cy+Math.sin(ang)*rr,1.5,0,7);ctx.fill();}
 
   // core ember
   const og=ctx.createRadialGradient(cx,cy,0,cx,cy,coreR);
@@ -534,7 +653,8 @@ function drawStory(){
 
   const place=(el,vis,ty)=>{el.style.transition='opacity .6s,transform .6s';el.style.opacity=vis;
     el.style.transform='translateY('+ty+'px) scale('+(0.9+vis*.1)+')';};
-  place($('#pBrand'),B,40-B*40);place($('#pStore'),C,40-C*40);place($('#pGrow'),D,40-D*40);
+  const storeVis=clamp(win(p,.16,.4)); // e-commerce store appears early & stays prominent
+  place($('#pBrand'),B,40-B*40);place($('#pStore'),Math.max(storeVis,C),40-Math.max(storeVis,C)*40);place($('#pGrow'),D,40-D*40);
   toast($('#t1'),D>.15);toast($('#t2'),D>.4);toast($('#t3'),D>.65);
 
   $('#revNum').innerHTML=AR(Math.floor(easeInOut(D)*128000))+' <small>+'+AR(Math.floor(D*47))+'٪</small>';
@@ -650,23 +770,53 @@ const PKG={
     {n:'القيادة',p:'٦٬٠٠٠',u:'ريال/شهر',f:['كل المنصات','محتوى يومي','تصوير وموشن','إدارة مجتمع','استراتيجية محتوى']}
   ]
 };
+const WA='https://wa.me/966506039366?text=';
+const PKG_LABEL={store:'باقات المتاجر الإلكترونية',design:'باقات التصميم الجرافيكي',ads:'باقات الحملات الممولة',social:'باقات إدارة الحسابات'};
 function renderPackages(key){
+  $('#pkgEyebrow').textContent=PKG_LABEL[key];
   $('#packages').innerHTML=PKG[key].map(p=>`
     <div class="pkg ${p.feat?'feat':''}">${p.tag?`<span class="tag">${p.tag}</span>`:''}
       <h4>${p.n}</h4><div class="price">${p.p} <small>${p.u}</small></div>
-      <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><span class="go">اطلب الآن</span></div>`).join('');
+      <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <a class="go" target="_blank" rel="noopener" href="${WA+encodeURIComponent('مرحباً حِرف، أرغب في باقة '+p.n+' — '+PKG_LABEL[key])}">اطلب عبر واتساب</a></div>`).join('');
 }
-const gates=$('#gates');
-$$('.gate',gates).forEach(g=>{
+const svcGrid=$('#svcGrid');
+$$('.svc',svcGrid).forEach(g=>{
   g.addEventListener('mousemove',e=>{const r=g.getBoundingClientRect();
     g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px');});
-  g.addEventListener('click',()=>{const already=g.classList.contains('active');
-    $$('.gate',gates).forEach(x=>x.classList.remove('active'));const box=$('#packages');
-    if(already){gates.classList.remove('has-active');box.classList.remove('open');return;}
-    g.classList.add('active');gates.classList.add('has-active');
-    renderPackages(g.dataset.key);box.classList.add('open');
-    setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'nearest'}),200);});
+  g.addEventListener('click',()=>{
+    $$('.svc',svcGrid).forEach(x=>x.classList.remove('active'));g.classList.add('active');
+    renderPackages(g.dataset.key);
+    setTimeout(()=>$('#packages-anchor').scrollIntoView({behavior:'smooth',block:'start'}),60);});
 });
+renderPackages('store'); // pricing visible immediately
+
+/* Client reviews — auto-sliding glass cards (RTL) */
+const REVIEWS=[
+  {n:'نورة العتيبي',r:'صاحبة متجر أزياء',q:'حِرف بنوا لي متجر احترافي وزادت مبيعاتي خلال أول شهر. تنفيذ راقٍ ومتابعة مستمرة.'},
+  {n:'فهد القحطاني',r:'مؤسس علامة قهوة',q:'الهوية البصرية طلعت تفوق توقعاتي. فريق يفهم السوق السعودي بعمق.'},
+  {n:'سارة الدوسري',r:'متجر مستحضرات',q:'الحملات الممولة جابت لي عملاء فعليين، مو مجرد أرقام. النتائج واضحة وقابلة للقياس.'},
+  {n:'عبدالله الشهري',r:'مطعم',q:'إدارة حساباتنا صارت احترافية والمحتوى مستمر. تفاعل الجمهور تضاعف.'},
+  {n:'منيرة الحربي',r:'متجر هدايا',q:'من الفكرة للمتجر الكامل، كل خطوة كانت واضحة ومدروسة. أنصح فيهم بقوة.'}
+];
+(function reviews(){
+  const track=$('#revTrack'),dots=$('#revDots');if(!track)return;
+  track.innerHTML=REVIEWS.map(v=>`<div class="rev-card">
+    <div class="rev-q">”${v.q}“</div>
+    <div class="rev-who"><div class="rev-av">${v.n.slice(0,1)}</div><div><b>${v.n}</b><span>${v.r}</span></div></div></div>`).join('');
+  const cards=$$('.rev-card',track);let idx=0;
+  cards.forEach((_,i)=>{const d=document.createElement('i');if(i===0)d.className='on';
+    d.addEventListener('click',()=>go(i));dots.appendChild(d);});
+  const dotEls=$$('i',dots);
+  function go(i){idx=(i+cards.length)%cards.length;
+    // % is relative to full track width; one card = 100/N. RTL: positive reveals next.
+    track.style.transform='translateX('+(idx*100/cards.length)+'%)';
+    dotEls.forEach((d,k)=>d.className=k===idx?'on':'');}
+  let timer=setInterval(()=>go(idx+1),4200);
+  const vp=$('.reviews-vp');
+  vp.addEventListener('mouseenter',()=>clearInterval(timer));
+  vp.addEventListener('mouseleave',()=>timer=setInterval(()=>go(idx+1),4200));
+})();
 
 /* Portfolio generative tiles (brand palette) */
 const WORK=[
@@ -686,12 +836,12 @@ $$('#work canvas').forEach(cv=>{const {ctx,w,h}=fitCanvas(cv);let rng=(+cv.datas
   ctx.strokeStyle=hexA(ACCENT,.22);ctx.lineWidth=1;
   for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(rand()*w,rand()*h);ctx.lineTo(rand()*w,rand()*h);ctx.stroke();}});
 
-/* Count-ups */
-const COUNTERS=[['c1',180],['c2',120],['c3',45],['c4',98]];let counted=false;
+/* Count-ups (Why Hiraf stats) */
+const COUNTERS=[['c1',30,'+'],['c2',98,'٪'],['c3',10,'+'],['c4',5,'+']];let counted=false;
 new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!counted){counted=true;
-  COUNTERS.forEach(([id,to])=>{const el=$('#'+id);let n=0,step=to/60;
-    const tick=()=>{n+=step;if(n>=to)n=to;el.textContent=Math.floor(n).toLocaleString('ar-EG')+(id==='c4'?'٪':'+');
-      if(n<to)requestAnimationFrame(tick);};tick();});}}),{threshold:.4}).observe($('#proof'));
+  COUNTERS.forEach(([id,to,suf])=>{const el=$('#'+id);let n=0,step=Math.max(1,to/50);
+    const tick=()=>{n+=step;if(n>=to)n=to;el.textContent=Math.floor(n).toLocaleString('ar-EG')+suf;
+      if(n<to)requestAnimationFrame(tick);};tick();});}}),{threshold:.4}).observe($('#why'));
 
 /* Rail + hint */
 function railTick(){const sc=document.documentElement.scrollHeight-window.innerHeight;
