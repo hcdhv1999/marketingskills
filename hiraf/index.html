@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>حِرفة — كل صنعة لها حِرفة</title>
+<meta name="description" content="حِرفة تحوّل فكرتك إلى علامة رقمية كاملة — متجر، هوية، تسويق، وإدارة. كل صنعة لها حِرفة." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   HIRAF — Cinematic Scroll Experience
+   كل صنعة لها حِرفة
+   Self-contained: vanilla JS + canvas + CSS. Zero deps.
+   ========================================================= */
+
+:root{
+  --bg:#03060a;
+  --ink:#eaf3ef;
+  --muted:#8fa39b;
+  --green:#0f8a5f;
+  --green-bright:#1ee08f;
+  --green-deep:#063826;
+  --gold:#d9b878;
+  --glass:rgba(18,30,26,.45);
+  --glass-brd:rgba(120,200,160,.16);
+  --shadow:0 30px 90px rgba(0,0,0,.6);
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Tajawal','Cairo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+::selection{background:var(--green-bright);color:#02110b}
+
+/* ---------- Loader / 5-second hook ---------- */
+#boot{
+  position:fixed;inset:0;z-index:9000;background:#02050a;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  transition:opacity 1.1s var(--ease);
+}
+#boot.gone{opacity:0;pointer-events:none}
+.boot-spark{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--green-bright);
+  box-shadow:0 0 40px 10px rgba(30,224,143,.6),0 0 120px 30px rgba(30,224,143,.25);
+  animation:bootPulse 1.6s var(--ease) infinite;
+}
+.boot-word{
+  margin-top:34px;font-weight:900;font-size:clamp(22px,4vw,34px);
+  letter-spacing:.04em;opacity:0;animation:bootIn 1.4s .4s var(--ease) forwards;
+}
+.boot-sub{color:var(--muted);font-size:13px;margin-top:10px;opacity:0;
+  animation:bootIn 1.4s .8s var(--ease) forwards;letter-spacing:.3em}
+@keyframes bootPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(2.4);opacity:1}}
+@keyframes bootIn{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(12px)}}
+
+/* ---------- Global canvas (ambient particles) ---------- */
+#ambient{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ---------- Progress rail ---------- */
+#rail{position:fixed;top:0;right:0;left:0;height:3px;z-index:200;background:transparent}
+#rail > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green-bright));
+  box-shadow:0 0 18px rgba(30,224,143,.7)}
+
+/* ---------- Top brand ---------- */
+.brandbar{
+  position:fixed;top:0;right:0;left:0;z-index:180;display:flex;align-items:center;
+  justify-content:space-between;padding:18px clamp(16px,4vw,44px);
+  mix-blend-mode:difference;pointer-events:none;
+}
+.brandbar .mark{font-weight:900;font-size:22px;letter-spacing:.02em;color:#fff;display:flex;gap:9px;align-items:center}
+.brandbar .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 14px var(--green-bright)}
+.brandbar .nav{font-size:13px;color:#fff;opacity:.85;letter-spacing:.18em}
+
+/* =========================================================
+   STAGE — sticky cinematic viewport driven by scroll
+   ========================================================= */
+.film{position:relative;z-index:2}
+.act{position:relative}
+.act .pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;
+  align-items:center;justify-content:center}
+.scroller{height:var(--len,500vh)}
+
+.stagecanvas{position:absolute;inset:0;width:100%;height:100%}
+
+.center{position:relative;z-index:5;text-align:center;padding:0 22px;max-width:900px}
+.kicker{font-size:12px;letter-spacing:.45em;color:var(--green-bright);
+  text-transform:uppercase;margin-bottom:18px;opacity:.9}
+.headline{
+  font-weight:900;line-height:1.18;
+  font-size:clamp(30px,6.4vw,74px);
+  text-shadow:0 8px 60px rgba(0,0,0,.7);
+}
+.headline .glow{color:var(--green-bright);text-shadow:0 0 50px rgba(30,224,143,.6)}
+.sub{margin-top:18px;font-size:clamp(15px,2.2vw,21px);color:var(--muted);font-weight:400}
+
+/* fade helpers driven by JS */
+.beat{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.beat.on{opacity:1;transform:none}
+
+/* ---------- Floating glass UI panels ---------- */
+.panel{
+  position:absolute;border-radius:18px;background:var(--glass);
+  border:1px solid var(--glass-brd);backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:var(--shadow);padding:16px;overflow:hidden;
+  will-change:transform,opacity;
+}
+.panel .ph{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:12px}
+.panel .ph .d{width:8px;height:8px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 10px var(--green-bright)}
+.panel .ph .d.r{background:#ff6b6b;box-shadow:0 0 10px #ff6b6b}
+.panel .ph .d.y{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+.tile{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;height:54px;position:relative;overflow:hidden}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(30,224,143,.12) 50%,transparent 70%);
+  transform:translateX(120%);animation:sheen 3.2s linear infinite}
+@keyframes sheen{to{transform:translateX(-120%)}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+.bar{height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-bright));width:30%}
+.metric{font-weight:900;font-size:26px;color:#fff}
+.metric small{font-size:12px;color:var(--green-bright);font-weight:700;margin-inline-start:6px}
+
+.spark{display:flex;align-items:flex-end;gap:5px;height:48px}
+.spark > b{flex:1;background:linear-gradient(180deg,var(--green-bright),var(--green));border-radius:3px;
+  opacity:.85;height:20%}
+
+/* notifications */
+.toast{position:absolute;display:flex;gap:10px;align-items:center;
+  background:rgba(8,40,28,.85);border:1px solid var(--glass-brd);border-radius:14px;
+  padding:11px 14px;font-size:13px;box-shadow:var(--shadow);backdrop-filter:blur(10px);
+  opacity:0;transform:translateX(-24px)}
+.toast .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--green),var(--green-bright));font-size:15px}
+.toast b{color:#fff}.toast span{color:var(--muted);font-size:11px;display:block}
+
+/* =========================================================
+   GATEWAYS — conversion
+   ========================================================= */
+.section{position:relative;z-index:3;padding:clamp(70px,12vh,150px) 22px;max-width:var(--maxw);margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.4em;color:var(--green-bright);text-transform:uppercase;text-align:center;margin-bottom:14px}
+.h2{font-weight:900;font-size:clamp(28px,5vw,52px);text-align:center;line-height:1.2}
+.lead{text-align:center;color:var(--muted);max-width:620px;margin:16px auto 0;font-size:clamp(15px,2vw,19px)}
+
+.gates{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:54px}
+.gate{
+  position:relative;border-radius:24px;padding:30px;min-height:240px;cursor:pointer;
+  background:linear-gradient(160deg,rgba(20,40,32,.55),rgba(6,14,11,.65));
+  border:1px solid var(--glass-brd);overflow:hidden;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s;
+  backdrop-filter:blur(8px);
+}
+.gate::before{content:"";position:absolute;inset:-1px;border-radius:24px;opacity:0;
+  background:radial-gradient(420px 300px at var(--mx,50%) var(--my,30%),rgba(30,224,143,.22),transparent 60%);
+  transition:opacity .5s}
+.gate:hover{transform:translateY(-8px) scale(1.012);border-color:rgba(30,224,143,.45);
+  box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(30,224,143,.25)}
+.gate:hover::before{opacity:1}
+.gate .gico{font-size:40px;filter:drop-shadow(0 8px 20px rgba(30,224,143,.35))}
+.gate h3{font-size:clamp(20px,2.6vw,26px);font-weight:900;margin:16px 0 8px}
+.gate p{color:var(--muted);font-size:15px;max-width:90%}
+.gate .viz{position:absolute;left:18px;bottom:18px;display:flex;gap:7px;opacity:.55}
+.gate .viz i{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;font-size:14px}
+.gate .pick{position:absolute;top:22px;left:22px;font-size:12px;color:var(--green-bright);
+  border:1px solid rgba(30,224,143,.4);border-radius:30px;padding:5px 12px;opacity:0;transition:opacity .4s}
+.gate.active{border-color:var(--green-bright);box-shadow:0 0 0 1px var(--green-bright),0 40px 100px rgba(0,0,0,.6)}
+.gate.active .pick{opacity:1}
+.gates.has-active .gate:not(.active){opacity:.4;filter:saturate(.5)}
+
+/* packages drawer */
+.packages{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  max-height:0;overflow:hidden;opacity:0;transition:max-height .7s var(--ease),opacity .6s,margin .5s}
+.packages.open{max-height:1400px;opacity:1;margin-top:40px}
+.pkg{border-radius:20px;padding:26px;background:var(--glass);border:1px solid var(--glass-brd);
+  backdrop-filter:blur(10px);position:relative;transition:transform .4s var(--ease)}
+.pkg:hover{transform:translateY(-6px)}
+.pkg.feat{border-color:rgba(30,224,143,.5);box-shadow:0 0 40px rgba(30,224,143,.12)}
+.pkg .tag{position:absolute;top:-12px;right:24px;background:linear-gradient(135deg,var(--green),var(--green-bright));
+  color:#02110b;font-weight:800;font-size:11px;padding:5px 12px;border-radius:30px}
+.pkg h4{font-size:20px;font-weight:900;margin-bottom:6px}
+.pkg .price{font-size:30px;font-weight:900;color:#fff;margin:10px 0}
+.pkg .price small{font-size:13px;color:var(--muted);font-weight:500}
+.pkg ul{list-style:none;margin:16px 0 0}
+.pkg li{padding:8px 0;color:var(--muted);font-size:14px;border-top:1px solid rgba(255,255,255,.05);
+  display:flex;gap:9px;align-items:center}
+.pkg li::before{content:"✦";color:var(--green-bright);font-size:12px}
+.pkg .go{margin-top:18px;display:block;text-align:center;padding:12px;border-radius:12px;
+  background:rgba(30,224,143,.12);border:1px solid rgba(30,224,143,.3);color:var(--green-bright);
+  font-weight:800;cursor:pointer;transition:background .3s}
+.pkg .go:hover{background:rgba(30,224,143,.22)}
+
+/* trust */
+.trust{display:flex;flex-wrap:wrap;gap:26px;justify-content:center;margin-top:64px}
+.trust .t{text-align:center}
+.trust .t b{display:block;font-size:clamp(30px,4vw,46px);font-weight:900;color:#fff}
+.trust .t span{color:var(--muted);font-size:13px;letter-spacing:.05em}
+
+/* portfolio strip */
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.work .c{border-radius:18px;height:180px;overflow:hidden;position:relative;
+  border:1px solid var(--glass-brd);background:linear-gradient(160deg,#0a1812,#04100b)}
+.work .c .lbl{position:absolute;bottom:14px;right:16px;font-weight:800;z-index:2}
+.work .c .lbl small{display:block;color:var(--green-bright);font-size:11px;font-weight:600}
+.work .c canvas{position:absolute;inset:0}
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+.finale{position:relative;background:
+  radial-gradient(900px 600px at 50% -10%,rgba(15,138,95,.35),transparent 60%),
+  linear-gradient(180deg,#031a12,#020c08 70%);
+  padding:clamp(90px,16vh,180px) 22px;text-align:center;overflow:hidden}
+.finale .biglogo{font-weight:900;font-size:clamp(64px,18vw,200px);line-height:.95;
+  background:linear-gradient(180deg,#fff,#bfe9d4 60%,var(--green-bright));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 80px rgba(30,224,143,.2)}
+.finale .fline{font-size:clamp(20px,3.4vw,34px);font-weight:900;margin-top:18px}
+.finale .ftext{color:#bcd5c9;max-width:560px;margin:22px auto 0;font-size:clamp(16px,2.2vw,20px);line-height:1.9}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:42px}
+.btn{padding:17px 36px;border-radius:50px;font-weight:800;font-size:16px;cursor:pointer;
+  border:1px solid transparent;transition:transform .3s var(--ease),box-shadow .3s;text-decoration:none;display:inline-block}
+.btn.primary{background:linear-gradient(135deg,var(--green-bright),var(--green));color:#02110b;
+  box-shadow:0 18px 50px rgba(30,224,143,.4)}
+.btn.primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 26px 70px rgba(30,224,143,.55)}
+.btn.ghost{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.18);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+
+footer{padding:40px 22px;text-align:center;color:var(--muted);font-size:13px;
+  border-top:1px solid rgba(255,255,255,.05)}
+
+/* scroll hint */
+.hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:120;
+  color:var(--muted);font-size:12px;letter-spacing:.3em;display:flex;flex-direction:column;
+  align-items:center;gap:8px;transition:opacity .6s}
+.hint .m{width:22px;height:36px;border:2px solid rgba(255,255,255,.25);border-radius:14px;position:relative}
+.hint .m::after{content:"";position:absolute;top:7px;left:50%;width:4px;height:7px;border-radius:3px;
+  background:var(--green-bright);transform:translateX(-50%);animation:wheel 1.6s var(--ease) infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* responsive */
+@media(max-width:860px){
+  .gates{grid-template-columns:1fr}
+  .packages{grid-template-columns:1fr}
+  .work{grid-template-columns:1fr}
+  .panel{transform:scale(.82)}
+}
+@media(prefers-reduced-motion:reduce){
+  .tile::after,.boot-spark{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- BOOT / 5-SECOND HOOK -->
+<div id="boot">
+  <div class="boot-spark"></div>
+  <div class="boot-word">حِرفة</div>
+  <div class="boot-sub">كل صنعة لها حِرفة</div>
+</div>
+
+<canvas id="ambient"></canvas>
+<div id="rail"><i></i></div>
+
+<div class="brandbar">
+  <div class="mark"><span class="dot"></span>حِرفة</div>
+  <div class="nav">HIRAF</div>
+</div>
+
+<div class="hint" id="hint"><span>اسحب للأسفل</span><span class="m"></span></div>
+
+<main class="film">
+
+  <!-- ============ ACT A : IDEA → BRAND → STORE → GROWTH ============ -->
+  <section class="act" id="actStory">
+    <div class="scroller" style="--len:680vh"></div>
+    <div class="pin">
+      <canvas class="stagecanvas" id="storyCanvas"></canvas>
+
+      <!-- floating UI built by JS lives here -->
+      <div id="storyUI" style="position:absolute;inset:0;pointer-events:none"></div>
+
+      <div class="center">
+        <div class="kicker" id="storyKicker">المرحلة الأولى</div>
+        <h1 class="headline" id="storyHead">كل مشروع يبدأ <span class="glow">بفكرة</span></h1>
+        <p class="sub" id="storySub">في البداية... مجرّد ومضة في الظلام.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACT B : FOUR WORLDS → MERGE → CORE → LOGO ============ -->
+  <section class="act" id="actMerge">
+    <div class="scroller" style="--len:640vh"></div>
+    <div class="pin">
+      <canvas class="stagecanvas" id="mergeCanvas"></canvas>
+      <div class="center">
+        <div class="kicker" id="mergeKicker">التحوّل</div>
+        <h1 class="headline" id="mergeHead">كل خدمة تصنع جزءاً من <span class="glow">النجاح</span></h1>
+        <p class="sub" id="mergeSub">أربعة عوالم... تبدأ بالعمل.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ ACT C : GATEWAYS / CONVERSION ============ -->
+<section class="section" id="convert">
+  <div class="eyebrow beat">ابدأ رحلتك</div>
+  <h2 class="h2 beat">من أين تبدأ رحلتك؟</h2>
+  <p class="lead beat">اختر المرحلة التي يحتاجها مشروعك الآن، وسنقودك إلى الخطوة التالية.</p>
+
+  <div class="gates" id="gates">
+    <div class="gate beat" data-key="store">
+      <span class="pick">المسار المختار ✓</span>
+      <div class="gico">🛒</div>
+      <h3>أريد تأسيس متجر إلكتروني</h3>
+      <p>من الفكرة إلى متجر جاهز للبيع والدفع والشحن.</p>
+      <div class="viz"><i>📦</i><i>💳</i><i>🚚</i></div>
+    </div>
+    <div class="gate beat" data-key="design">
+      <span class="pick">المسار المختار ✓</span>
+      <div class="gico">🎨</div>
+      <h3>أريد بناء هوية احترافية</h3>
+      <p>شعار وهوية بصرية تمنح مشروعك حضوراً يليق به.</p>
+      <div class="viz"><i>✏️</i><i>🎯</i><i>🅰️</i></div>
+    </div>
+    <div class="gate beat" data-key="ads">
+      <span class="pick">المسار المختار ✓</span>
+      <div class="gico">📢</div>
+      <h3>أريد تحقيق مبيعات أكثر</h3>
+      <p>حملات مدروسة تستهدف العملاء المناسبين وتحقق نتائج فعلية.</p>
+      <div class="viz"><i>📈</i><i>🎯</i><i>💰</i></div>
+    </div>
+    <div class="gate beat" data-key="social">
+      <span class="pick">المسار المختار ✓</span>
+      <div class="gico">📱</div>
+      <h3>أريد إدارة حضوري الرقمي</h3>
+      <p>إدارة احترافية لحساباتك وصناعة محتوى مستمر لجمهورك.</p>
+      <div class="viz"><i>🗓️</i><i>💬</i><i>❤️</i></div>
+    </div>
+  </div>
+
+  <div class="packages" id="packages"></div>
+</section>
+
+<!-- ============ PORTFOLIO + TRUST ============ -->
+<section class="section" id="proof">
+  <div class="eyebrow beat">أعمالنا</div>
+  <h2 class="h2 beat">صنعنا حضوراً يُذكر</h2>
+  <div class="work" id="work"></div>
+
+  <div class="trust">
+    <div class="t beat"><b id="c1">0</b><span>مشروع رقمي</span></div>
+    <div class="t beat"><b id="c2">0</b><span>متجر إلكتروني</span></div>
+    <div class="t beat"><b id="c3">0</b><span>مليون ريال مبيعات للعملاء</span></div>
+    <div class="t beat"><b id="c4">0</b><span>رضا العملاء ٪</span></div>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section class="finale">
+  <canvas class="stagecanvas" id="finaleCanvas"></canvas>
+  <div style="position:relative;z-index:5">
+    <div class="biglogo beat">حِرفة</div>
+    <div class="fline beat">كل صنعة لها حِرفة</div>
+    <p class="ftext beat">من الفكرة الأولى وحتى النمو...<br/>نبني حضورك الرقمي خطوة بخطوة.</p>
+    <div class="cta-row">
+      <a class="btn primary beat" href="#convert">ابدأ مشروعك الآن</a>
+      <a class="btn ghost beat" href="#contact" id="contactBtn">تواصل معنا</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  حِرفة — وكالة رقمية سعودية · كل صنعة لها حِرفة · © <span id="yr"></span>
+</footer>
+
+<script>
+/* =========================================================
+   Core helpers
+   ========================================================= */
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+// sub-progress within a [start,end] window of a 0..1 progress
+const win=(p,s,e)=>clamp((p-s)/(e-s));
+const DPR=()=>Math.min(2,window.devicePixelRatio||1);
+const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+function fitCanvas(cv){
+  const r=cv.getBoundingClientRect(), d=DPR();
+  cv.width=Math.max(1,r.width*d); cv.height=Math.max(1,r.height*d);
+  const ctx=cv.getContext('2d'); ctx.setTransform(d,0,0,d,0,0);
+  return {ctx,w:r.width,h:r.height};
+}
+
+/* progress of an .act: 0 when its top hits viewport top, 1 when it scrolls fully */
+function actProgress(act){
+  const sc=act.querySelector('.scroller');
+  const total=sc.offsetHeight-window.innerHeight;
+  const start=act.offsetTop;
+  return clamp((window.scrollY-start)/total);
+}
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* =========================================================
+   Boot reveal
+   ========================================================= */
+window.addEventListener('load',()=>{
+  setTimeout(()=>$('#boot').classList.add('gone'),2200);
+});
+
+/* =========================================================
+   Ambient background particles (whole-page depth)
+   ========================================================= */
+(function ambient(){
+  const cv=$('#ambient'); let s=fitCanvas(cv); let parts=[];
+  const N=reduce?0:Math.min(90,Math.floor(s.w*s.h/16000));
+  for(let i=0;i<N;i++)parts.push({
+    x:Math.random()*s.w,y:Math.random()*s.h,
+    z:Math.random()*1+.2,r:Math.random()*1.6+.3,
+    vy:(Math.random()*.25+.05)
+  });
+  function draw(){
+    const {ctx,w,h}=s; ctx.clearRect(0,0,w,h);
+    for(const p of parts){
+      p.y-=p.vy*p.z; if(p.y<-5){p.y=h+5;p.x=Math.random()*w;}
+      ctx.beginPath();
+      ctx.fillStyle='rgba(30,224,143,'+(.06+p.z*.10)+')';
+      ctx.arc(p.x,p.y,p.r*p.z,0,7); ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  if(N)draw();
+  window.addEventListener('resize',()=>{s=fitCanvas(cv);});
+})();
+
+/* =========================================================
+   Floating glass panels for the STORY act
+   Built once, animated by progress.
+   ========================================================= */
+function buildStoryUI(){
+  const root=$('#storyUI');
+  root.innerHTML=`
+    <!-- BRAND identity panel -->
+    <div class="panel" id="pBrand" style="width:260px;top:18%;right:8%">
+      <div class="ph"><span class="d"></span><span class="d y"></span> الهوية البصرية</div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--green-bright),var(--green-deep));display:grid;place-items:center;font-weight:900;color:#02110b">ح</div>
+        <div><b style="color:#fff">حِرفة</b><br><span style="color:var(--muted);font-size:11px">Brand System</span></div>
+      </div>
+      <div class="grid3" style="margin-bottom:8px">
+        <div class="tile" style="height:30px;background:linear-gradient(135deg,#0f8a5f,#1ee08f)"></div>
+        <div class="tile" style="height:30px;background:linear-gradient(135deg,#063826,#0a5c3e)"></div>
+        <div class="tile" style="height:30px;background:linear-gradient(135deg,#d9b878,#f0d9a8)"></div>
+      </div>
+      <div style="font-family:Cairo;font-weight:900;color:#fff;font-size:20px">Aa <span style="font-weight:300">أبجد</span></div>
+    </div>
+
+    <!-- STORE panel -->
+    <div class="panel" id="pStore" style="width:300px;bottom:14%;left:7%">
+      <div class="ph"><span class="d"></span><span class="d r"></span><span class="d y"></span> متجر حِرفة · مباشر</div>
+      <div class="grid2" style="margin-bottom:9px">
+        <div class="tile"></div><div class="tile"></div>
+        <div class="tile"></div><div class="tile"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(30,224,143,.1);border-radius:10px;padding:9px 12px">
+        <span style="font-size:12px;color:var(--green-bright)">إتمام الشراء</span>
+        <span style="font-weight:900;color:#fff">٣٤٩ ﷼</span>
+      </div>
+    </div>
+
+    <!-- GROWTH analytics panel -->
+    <div class="panel" id="pGrow" style="width:260px;top:20%;left:9%">
+      <div class="ph"><span class="d"></span> النمو · هذا الشهر</div>
+      <div class="metric" id="revNum">٠ <small>+٠٪</small></div>
+      <div class="spark" id="spark"></div>
+      <div class="bar" style="margin-top:12px"><i id="growBar"></i></div>
+    </div>
+
+    <!-- toasts -->
+    <div class="toast" id="t1" style="top:30%;right:11%">
+      <div class="ic">🛒</div><div><b>طلب جديد</b><span>منتج · ٢٤٩ ﷼</span></div>
+    </div>
+    <div class="toast" id="t2" style="top:46%;right:14%">
+      <div class="ic">💳</div><div><b>تم الدفع بنجاح</b><span>عميل جديد من الرياض</span></div>
+    </div>
+    <div class="toast" id="t3" style="top:62%;right:10%">
+      <div class="ic">📈</div><div><b>ارتفاع في المبيعات</b><span>+٣٢٪ مقارنة بالأمس</span></div>
+    </div>
+  `;
+  // build spark bars
+  const sp=$('#spark'); for(let i=0;i<14;i++){const b=document.createElement('b');sp.appendChild(b);}
+}
+buildStoryUI();
+
+/* =========================================================
+   STORY ACT — canvas: idea grows → brand → store → growth
+   plus panel choreography & headline beats
+   ========================================================= */
+const storyCv=$('#storyCanvas'); let storyS=fitCanvas(storyCv);
+const HEADS=[
+  {k:'المرحلة الأولى',h:'كل مشروع يبدأ <span class="glow">بفكرة</span>',s:'في البداية... مجرّد ومضة في الظلام.'},
+  {k:'المرحلة الثانية',h:'كل هوية تبدأ <span class="glow">بحِرفة</span>',s:'الفكرة تتحوّل إلى علامة لها شكل ولون وصوت.'},
+  {k:'المرحلة الثالثة',h:'نبني متجرك كما <span class="glow">يجب أن يكون</span>',s:'منتجات، فئات، دفع، وتحليلات — تُبنى أمام عينيك.'},
+  {k:'المرحلة الرابعة',h:'ثم نساعده على <span class="glow">النمو</span>',s:'مبيعات تتصاعد، وطلبات لا تتوقف.'}
+];
+let curHead=-1;
+function setHead(i){
+  if(i===curHead)return; curHead=i; const d=HEADS[i];
+  const kc=$('#storyKicker'),hd=$('#storyHead'),sb=$('#storySub');
+  [kc,hd,sb].forEach(el=>el.style.opacity=0);
+  setTimeout(()=>{
+    kc.textContent=d.k; hd.innerHTML=d.h; sb.textContent=d.s;
+    [kc,hd,sb].forEach(el=>el.style.transition='opacity .5s',el=>{});
+    kc.style.opacity=.9; hd.style.opacity=1; sb.style.opacity=.9;
+  },180);
+}
+function toast(el,show,x){
+  el.style.transition='opacity .5s,transform .5s';
+  el.style.opacity=show?1:0;
+  el.style.transform=show?'translateX(0)':'translateX(-24px)';
+}
+
+const AR=n=>n.toLocaleString('ar-EG');
+
+function drawStory(){
+  const act=$('#actStory'); const p=actProgress(act);
+  const {ctx,w,h}=storyS; const cx=w/2, cy=h/2;
+  ctx.clearRect(0,0,w,h);
+
+  // phase windows
+  const A=win(p,0,.22);   // idea grows
+  const B=win(p,.22,.46); // brand
+  const C=win(p,.46,.72); // store
+  const D=win(p,.72,1);   // growth
+
+  // headline routing
+  if(p<.22)setHead(0); else if(p<.46)setHead(1); else if(p<.72)setHead(2); else setHead(3);
+
+  // ---- The idea / core glow (persists, transforms) ----
+  const grow=easeInOut(A);
+  let coreR=lerp(4,90,grow);
+  // pulse
+  const t=performance.now()/1000;
+  const pulse=1+Math.sin(t*2)*0.05;
+  coreR*=pulse;
+
+  // ambient radial light
+  const lg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(coreR*4,260));
+  lg.addColorStop(0,'rgba(30,224,143,'+(0.22+grow*0.12)+')');
+  lg.addColorStop(1,'rgba(3,6,10,0)');
+  ctx.fillStyle=lg; ctx.fillRect(0,0,w,h);
+
+  // orbiting idea particles forming the spark
+  const ringN=42;
+  for(let i=0;i<ringN;i++){
+    const ang=(i/ringN)*Math.PI*2 + t*0.4;
+    const rr=coreR*(1.4+Math.sin(t*1.3+i)*0.15);
+    const x=cx+Math.cos(ang)*rr, y=cy+Math.sin(ang)*rr;
+    ctx.beginPath();
+    ctx.fillStyle='rgba(30,224,143,'+(0.5*(1-A*0.4))+')';
+    ctx.arc(x,y,1.6,0,7); ctx.fill();
+  }
+
+  // core orb
+  const og=ctx.createRadialGradient(cx,cy,0,cx,cy,coreR);
+  og.addColorStop(0,'#eafff5'); og.addColorStop(.4,'#1ee08f');
+  og.addColorStop(1,'rgba(15,138,95,0)');
+  ctx.beginPath(); ctx.fillStyle=og; ctx.arc(cx,cy,coreR,0,7); ctx.fill();
+
+  // ---- Connective beams during store/growth ----
+  if(C>0){
+    ctx.strokeStyle='rgba(30,224,143,'+(0.12*C)+')'; ctx.lineWidth=1;
+    for(let i=0;i<6;i++){
+      const ang=i/6*Math.PI*2+t*0.2;
+      ctx.beginPath(); ctx.moveTo(cx,cy);
+      ctx.lineTo(cx+Math.cos(ang)*w*0.4, cy+Math.sin(ang)*h*0.4); ctx.stroke();
+    }
+  }
+
+  // ---- Panel choreography ----
+  const pBrand=$('#pBrand'),pStore=$('#pStore'),pGrow=$('#pGrow');
+  const place=(el,vis,ty)=>{
+    el.style.transition='opacity .6s,transform .6s';
+    el.style.opacity=vis;
+    el.style.transform='translateY('+ty+'px) scale('+(0.9+vis*0.1)+')';
+  };
+  place(pBrand,B,40-B*40);
+  place(pStore,C,40-C*40);
+  place(pGrow,D,40-D*40);
+
+  // toasts cascade during growth
+  toast($('#t1'),D>0.15?1:0);
+  toast($('#t2'),D>0.4?1:0);
+  toast($('#t3'),D>0.65?1:0);
+
+  // animate growth metric
+  const rev=Math.floor(easeInOut(D)*128000);
+  $('#revNum').innerHTML=AR(rev)+' <small>+'+AR(Math.floor(D*47))+'٪</small>';
+  $('#growBar').style.width=(20+D*75)+'%';
+  $$('#spark b').forEach((b,i)=>{
+    const base=20+Math.sin(i*0.7)*15;
+    b.style.height=clamp(base+D*60*(0.4+Math.sin(i+t)*0.3),8,100)+'%';
+  });
+
+  requestAnimationFrame(drawStory);
+}
+
+/* =========================================================
+   MERGE ACT — four worlds → connect → merge → core → logo
+   ========================================================= */
+const mergeCv=$('#mergeCanvas'); let mergeS=fitCanvas(mergeCv);
+const WORLDS=[
+  {label:'متجر',icon:'🛒',col:'#1ee08f'},
+  {label:'تصميم',icon:'🎨',col:'#d9b878'},
+  {label:'إعلانات',icon:'📢',col:'#5fb8ff'},
+  {label:'إدارة',icon:'📱',col:'#c98bff'}
+];
+const MHEADS=[
+  {k:'التحوّل · ١',h:'كل خدمة تصنع جزءاً من <span class="glow">النجاح</span>',s:'أربعة عوالم تعمل، كلٌّ بحركته الخاصة.'},
+  {k:'التحوّل · ٢',h:'لكن النجاح لا يُبنى <span class="glow">بخدمة واحدة</span>',s:'تبدأ الخطوط بالتشكّل، والبيانات بالتدفّق.'},
+  {k:'التحوّل · ٣',h:'النجاح الحقيقي حين تعمل القطع <span class="glow">معاً</span>',s:'الواجهات تندمج، والحركة تشتدّ.'},
+  {k:'التحوّل · ٤',h:'هنا تبدأ <span class="glow">الحِرفة</span>',s:'كل شيء ينهار في نواة رقمية واحدة.'},
+  {k:'',h:'كل صنعة لها <span class="glow">حِرفة</span>',s:'ونحن حِرفة مشروعك.'}
+];
+let curM=-1;
+function setMHead(i){
+  if(i===curM)return; curM=i; const d=MHEADS[i];
+  const kc=$('#mergeKicker'),hd=$('#mergeHead'),sb=$('#mergeSub');
+  [kc,hd,sb].forEach(el=>el.style.opacity=0);
+  setTimeout(()=>{
+    kc.textContent=d.k; hd.innerHTML=d.h; sb.textContent=d.s;
+    kc.style.transition=hd.style.transition=sb.style.transition='opacity .5s';
+    kc.style.opacity=d.k?0.9:0; hd.style.opacity=1; sb.style.opacity=.9;
+  },180);
+}
+
+function hexA(hex,a){const n=parseInt(hex.slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+
+function drawMerge(){
+  const act=$('#actMerge'); const p=actProgress(act);
+  const {ctx,w,h}=mergeS; const cx=w/2,cy=h/2; const t=performance.now()/1000;
+  ctx.clearRect(0,0,w,h);
+
+  // phases
+  const P1=win(p,0,.20);   // worlds operate
+  const P2=win(p,.20,.42); // move together / connect
+  const P3=win(p,.42,.62); // merge
+  const P4=win(p,.62,.80); // collapse to core
+  const P5=win(p,.80,1);   // logo reveal
+
+  if(p<.20)setMHead(0); else if(p<.42)setMHead(1); else if(p<.62)setMHead(2);
+  else if(p<.80)setMHead(3); else setMHead(4);
+
+  const spread=lerp(Math.min(w,h)*0.30,0,easeInOut(clamp(P3+P4)));
+  const pull=easeInOut(clamp(win(p,.20,.62)));
+
+  // connective lines between worlds (P2+)
+  const pos=WORLDS.map((wd,i)=>{
+    const ang=i/4*Math.PI*2 - Math.PI/4 + t*0.15*(1-pull);
+    return {x:cx+Math.cos(ang)*spread, y:cy+Math.sin(ang)*spread, c:wd.col};
+  });
+
+  if(P2>0 && P4<1){
+    ctx.lineWidth=1.2;
+    for(let i=0;i<pos.length;i++)for(let j=i+1;j<pos.length;j++){
+      ctx.strokeStyle=hexA('#1ee08f',0.10+P2*0.25);
+      ctx.beginPath();ctx.moveTo(pos[i].x,pos[i].y);ctx.lineTo(pos[j].x,pos[j].y);ctx.stroke();
+      // flowing data dot
+      const fp=(t*0.4+i*0.2)%1;
+      const dx=lerp(pos[i].x,pos[j].x,fp), dy=lerp(pos[i].y,pos[j].y,fp);
+      ctx.beginPath();ctx.fillStyle=hexA('#1ee08f',0.6*P2);ctx.arc(dx,dy,2,0,7);ctx.fill();
+    }
+  }
+
+  // draw the four worlds (shrink/fade as they collapse)
+  const worldScale=lerp(1,0,easeInOut(P4));
+  const worldAlpha=clamp(1-P4*1.1);
+  if(worldAlpha>0.01){
+    pos.forEach((pp,i)=>{
+      const wd=WORLDS[i];
+      const r=lerp(58,30,pull)*worldScale*(1+Math.sin(t*1.5+i)*0.04);
+      // glow
+      const g=ctx.createRadialGradient(pp.x,pp.y,0,pp.x,pp.y,r*2.2);
+      g.addColorStop(0,hexA(wd.col,0.35*worldAlpha));g.addColorStop(1,hexA(wd.col,0));
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(pp.x,pp.y,r*2.2,0,7);ctx.fill();
+      // orb
+      const og=ctx.createRadialGradient(pp.x,pp.y,0,pp.x,pp.y,r);
+      og.addColorStop(0,hexA('#ffffff',0.9*worldAlpha));og.addColorStop(.5,hexA(wd.col,0.85*worldAlpha));
+      og.addColorStop(1,hexA(wd.col,0));
+      ctx.fillStyle=og;ctx.beginPath();ctx.arc(pp.x,pp.y,r,0,7);ctx.fill();
+      // icon + label
+      ctx.globalAlpha=worldAlpha; ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.font=(r*0.7)+'px serif'; ctx.fillText(wd.icon,pp.x,pp.y-2);
+      ctx.font='700 13px Tajawal,sans-serif';ctx.fillStyle=hexA('#ffffff',0.85*worldAlpha);
+      ctx.fillText(wd.label,pp.x,pp.y+r+16);
+      ctx.globalAlpha=1;
+    });
+  }
+
+  // ---- Energy core forms (P4+) ----
+  if(P4>0){
+    const cr=lerp(0,120,easeInOut(P4))*(1+Math.sin(t*3)*0.04);
+    // burst light
+    const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,cr*3.5);
+    bg.addColorStop(0,hexA('#1ee08f',0.4*P4));bg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    // rotating energy rings
+    for(let k=0;k<3;k++){
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(t*(0.6+k*0.3)+k);
+      ctx.strokeStyle=hexA('#1ee08f',0.5*P4*(1-P5*0.5));ctx.lineWidth=2;
+      ctx.beginPath();ctx.ellipse(0,0,cr*1.4,cr*0.5,0,0,7);ctx.stroke();ctx.restore();
+    }
+    const og=ctx.createRadialGradient(cx,cy,0,cx,cy,cr);
+    og.addColorStop(0,'#ffffff');og.addColorStop(.35,'#1ee08f');og.addColorStop(1,hexA('#0f8a5f',0));
+    ctx.fillStyle=og;ctx.beginPath();ctx.arc(cx,cy,cr,0,7);ctx.fill();
+
+    // contained mini-icons swirling inside the sphere (store/design/marketing/mgmt)
+    if(P5<0.6){
+      WORLDS.forEach((wd,i)=>{
+        const a=t*1.5+i/4*Math.PI*2; const rr=cr*0.55;
+        ctx.globalAlpha=(1-P5)*0.9;ctx.font=(cr*0.22)+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(wd.icon,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);ctx.globalAlpha=1;
+      });
+    }
+  }
+
+  // ---- Logo reveal (P5) ----
+  if(P5>0){
+    const a=easeInOut(P5);
+    ctx.save();
+    ctx.globalAlpha=a;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    const fs=Math.min(w*0.32,h*0.4)*(0.8+a*0.2);
+    // glow behind text
+    ctx.shadowColor='rgba(30,224,143,0.8)';ctx.shadowBlur=60*a;
+    const tg=ctx.createLinearGradient(cx-fs,cy-fs,cx+fs,cy+fs);
+    tg.addColorStop(0,'#ffffff');tg.addColorStop(.6,'#bfe9d4');tg.addColorStop(1,'#1ee08f');
+    ctx.fillStyle=tg;
+    ctx.font='900 '+fs+'px Tajawal,Cairo,sans-serif';
+    ctx.fillText('حِرفة',cx,cy);
+    ctx.restore();
+  }
+
+  requestAnimationFrame(drawMerge);
+}
+
+/* =========================================================
+   Reveal-on-scroll beats
+   ========================================================= */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('on');} });
+},{threshold:0.2});
+$$('.beat').forEach((el,i)=>{el.style.transitionDelay=(i%6*0.06)+'s';io.observe(el);});
+
+/* =========================================================
+   GATEWAYS interaction + packages
+   ========================================================= */
+const PKG={
+  store:[
+    {n:'البداية',p:'٢٬٩٠٠',u:'ريال',f:['متجر سلة / زد جاهز','حتى ٣٠ منتج','بوابات دفع وشحن','تصميم متجاوب']},
+    {n:'النمو',feat:1,tag:'الأكثر طلباً',p:'٥٬٩٠٠',u:'ريال',f:['متجر كامل الإعداد','منتجات غير محدودة','هوية داخل المتجر','تحليلات وتتبّع','دعم ٣ أشهر']},
+    {n:'المتقدّم',p:'٩٬٩٠٠',u:'ريال',f:['متجر مخصّص بالكامل','ربط أنظمة وERP','تحسين معدل التحويل','إدارة شهر مجاني']}
+  ],
+  design:[
+    {n:'الشعار',p:'١٬٢٠٠',u:'ريال',f:['٣ مفاهيم للشعار','ملفات مفتوحة','نسخ متعددة']},
+    {n:'الهوية الكاملة',feat:1,tag:'موصى به',p:'٣٬٥٠٠',u:'ريال',f:['شعار احترافي','نظام ألوان وخطوط','دليل هوية','قوالب سوشيال','تطبيقات الهوية']},
+    {n:'العلامة المتكاملة',p:'٦٬٥٠٠',u:'ريال',f:['هوية كاملة','نبرة صوت العلامة','تصاميم تغليف','عناصر موشن']}
+  ],
+  ads:[
+    {n:'الإطلاق',p:'١٬٥٠٠',u:'ريال/شهر',f:['منصة واحدة','إعداد الحملات','استهداف دقيق','تقرير شهري']},
+    {n:'الأداء',feat:1,tag:'الأفضل للنتائج',p:'٣٬٢٠٠',u:'ريال/شهر',f:['حتى ٣ منصات','تحسين مستمر','اختبارات A/B','تتبّع التحويلات','تقارير أسبوعية']},
+    {n:'التوسّع',p:'٥٬٥٠٠',u:'ريال/شهر',f:['كل المنصات','استراتيجية نمو','صفحات هبوط','إدارة ميزانية متقدمة']}
+  ],
+  social:[
+    {n:'الحضور',p:'١٬٨٠٠',u:'ريال/شهر',f:['حسابان','١٢ منشور شهرياً','تصاميم احترافية','جدولة محتوى']},
+    {n:'التفاعل',feat:1,tag:'الأكثر شيوعاً',p:'٣٬٤٠٠',u:'ريال/شهر',f:['٣ حسابات','٢٠ منشور + ستوري','ريلز شهرية','رد على التعليقات','تقرير أداء']},
+    {n:'القيادة',p:'٦٬٠٠٠',u:'ريال/شهر',f:['كل المنصات','محتوى يومي','تصوير وموشن','إدارة مجتمع','استراتيجية محتوى']}
+  ]
+};
+function renderPackages(key){
+  const box=$('#packages');
+  box.innerHTML=PKG[key].map(p=>`
+    <div class="pkg ${p.feat?'feat':''}">
+      ${p.tag?`<span class="tag">${p.tag}</span>`:''}
+      <h4>${p.n}</h4>
+      <div class="price">${p.p} <small>${p.u}</small></div>
+      <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <span class="go">اطلب الآن</span>
+    </div>`).join('');
+}
+const gates=$('#gates');
+$$('.gate',gates).forEach(g=>{
+  g.addEventListener('mousemove',e=>{
+    const r=g.getBoundingClientRect();
+    g.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    g.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+  g.addEventListener('click',()=>{
+    const key=g.dataset.key; const already=g.classList.contains('active');
+    $$('.gate',gates).forEach(x=>x.classList.remove('active'));
+    const box=$('#packages');
+    if(already){gates.classList.remove('has-active');box.classList.remove('open');return;}
+    g.classList.add('active'); gates.classList.add('has-active');
+    renderPackages(key); box.classList.add('open');
+    setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'nearest'}),250);
+  });
+});
+
+/* =========================================================
+   Portfolio generative tiles
+   ========================================================= */
+const WORK=[
+  {t:'متجر أزياء',s:'تجارة إلكترونية',seed:1},
+  {t:'هوية مقهى',s:'تصميم وهوية',seed:2},
+  {t:'حملة إطلاق',s:'إعلانات مدفوعة',seed:3},
+  {t:'علامة تجميل',s:'إدارة سوشيال',seed:4},
+  {t:'متجر إلكترونيات',s:'تجارة + نمو',seed:5},
+  {t:'مطعم فاخر',s:'هوية + محتوى',seed:6},
+];
+const workBox=$('#work');
+workBox.innerHTML=WORK.map(w=>`
+  <div class="c"><canvas data-seed="${w.seed}"></canvas>
+    <div class="lbl">${w.t}<small>${w.s}</small></div></div>`).join('');
+$$('#work canvas').forEach(cv=>{
+  const {ctx,w,h}=fitCanvas(cv); const seed=+cv.dataset.seed;
+  let rng=seed*9301; const rand=()=>((rng=(rng*9301+49297)%233280)/233280);
+  // gradient base
+  const g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,'#0a2018');g.addColorStop(1,'#03100a');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // generative shapes
+  for(let i=0;i<6;i++){
+    ctx.beginPath();
+    ctx.fillStyle=`rgba(30,224,143,${0.04+rand()*0.10})`;
+    ctx.arc(rand()*w,rand()*h,20+rand()*70,0,7);ctx.fill();
+  }
+  ctx.strokeStyle='rgba(30,224,143,0.25)';ctx.lineWidth=1;
+  for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(rand()*w,rand()*h);ctx.lineTo(rand()*w,rand()*h);ctx.stroke();}
+});
+
+/* =========================================================
+   Count-up trust numbers
+   ========================================================= */
+const COUNTERS=[['c1',180,''],['c2',120,''],['c3',45,''],['c4',98,'']];
+let counted=false;
+const cIo=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting&&!counted){counted=true;runCounts();} });
+},{threshold:0.4});
+cIo.observe($('#proof'));
+function runCounts(){
+  COUNTERS.forEach(([id,to])=>{
+    const el=$('#'+id);let n=0;const step=to/60;
+    const tick=()=>{n+=step;if(n>=to){n=to;}el.textContent=Math.floor(n).toLocaleString('ar-EG')+(id==='c4'?'٪':'+');if(n<to)requestAnimationFrame(tick);};
+    tick();
+  });
+}
+
+/* =========================================================
+   Progress rail + scroll hint
+   ========================================================= */
+function railTick(){
+  const sc=document.documentElement.scrollHeight-window.innerHeight;
+  const pr=clamp(window.scrollY/sc);
+  $('#rail i').style.width=(pr*100)+'%';
+  $('#hint').style.opacity=window.scrollY>window.innerHeight*0.6?0:1;
+  requestAnimationFrame(railTick);
+}
+
+/* =========================================================
+   Resize + boot loops
+   ========================================================= */
+function onResize(){
+  storyS=fitCanvas(storyCv);
+  mergeS=fitCanvas(mergeCv);
+}
+window.addEventListener('resize',onResize);
+
+requestAnimationFrame(drawStory);
+requestAnimationFrame(drawMerge);
+requestAnimationFrame(railTick);
+
+/* finale ambient sphere */
+(function finale(){
+  const cv=$('#finaleCanvas'); let s=fitCanvas(cv);
+  function d(){
+    const {ctx,w,h}=s;const t=performance.now()/1000;ctx.clearRect(0,0,w,h);
+    const cx=w/2,cy=h*0.4;
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*0.5);
+    g.addColorStop(0,'rgba(30,224,143,0.10)');g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    for(let i=0;i<40;i++){
+      const a=i/40*Math.PI*2+t*0.2;const r=120+Math.sin(t+i)*60;
+      ctx.beginPath();ctx.fillStyle='rgba(30,224,143,'+(0.15+Math.sin(i+t)*0.1)+')';
+      ctx.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r*0.6,1.5,0,7);ctx.fill();
+    }
+    requestAnimationFrame(d);
+  }
+  if(!reduce)d();
+  window.addEventListener('resize',()=>s=fitCanvas(cv));
+})();
+</script>
+</body>
+</html>
