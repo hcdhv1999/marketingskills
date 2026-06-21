@@ -37,27 +37,24 @@ npm run dev      # http://localhost:3000
 npm run build    # static export -> ./out
 ```
 
-The app is configured for **static export** (`output: "export"`), so `npm run build`
-produces a fully static site in `hirf-website/out/` that can be hosted anywhere.
-
 > Note: `npm run build` fetches Arabic web fonts (Tajawal, Reem Kufi) via `next/font`
 > at build time, so the build step needs network access.
 
-## النشر · Deployment (GitHub Pages)
+## النشر · Deployment (Vercel)
 
-A workflow at `.github/workflows/deploy-hirf.yml` builds and deploys the static
-export to GitHub Pages on every push to the working branch.
+This is a standard Next.js app — Vercel builds and hosts it natively. Import the
+repo at **[vercel.com/new](https://vercel.com/new)** and set:
 
-**One-time setup** (repo admin): GitHub → **Settings → Pages → Build and deployment
-→ Source: GitHub Actions**. The Actions token cannot enable Pages itself, so this
-switch must be flipped once. After that, the workflow deploys automatically to:
+| Setting           | Value                          |
+|-------------------|--------------------------------|
+| Framework Preset  | Next.js (auto-detected)        |
+| **Root Directory**| `hirf-website`                 |
+| Build Command     | `next build` (default)         |
+| Install Command   | `npm install` (default)        |
+| Branch            | your working branch            |
 
-```
-https://<owner>.github.io/<repo>/
-```
-
-The deploy sets `PAGES_BASE_PATH=/<repo>` so assets resolve under the project
-sub-path. For root/custom-domain hosting, leave `PAGES_BASE_PATH` unset.
+No environment variables are required. Vercel then redeploys automatically on
+every push and provides the production URL.
 
 ## البنية · Structure
 
