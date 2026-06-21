@@ -115,7 +115,7 @@ function AccordionNode({ node, depth }: { node: PackageNode; depth: number }) {
                 ))
               ) : node.details ? (
                 <PackageDetailsView d={node.details} />
-              ) : (
+              ) : node.blocks?.length ? null : (
                 <p className="pt-1 text-sm text-[var(--color-ink-soft)]">التفاصيل قريبًا</p>
               )}
             </div>
