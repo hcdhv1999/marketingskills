@@ -34,12 +34,30 @@ The page is one immersive, adaptive journey:
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build
-npm start        # serve production build
+npm run build    # static export -> ./out
 ```
+
+The app is configured for **static export** (`output: "export"`), so `npm run build`
+produces a fully static site in `hirf-website/out/` that can be hosted anywhere.
 
 > Note: `npm run build` fetches Arabic web fonts (Tajawal, Reem Kufi) via `next/font`
 > at build time, so the build step needs network access.
+
+## النشر · Deployment (GitHub Pages)
+
+A workflow at `.github/workflows/deploy-hirf.yml` builds and deploys the static
+export to GitHub Pages on every push to the working branch.
+
+**One-time setup** (repo admin): GitHub → **Settings → Pages → Build and deployment
+→ Source: GitHub Actions**. The Actions token cannot enable Pages itself, so this
+switch must be flipped once. After that, the workflow deploys automatically to:
+
+```
+https://<owner>.github.io/<repo>/
+```
+
+The deploy sets `PAGES_BASE_PATH=/<repo>` so assets resolve under the project
+sub-path. For root/custom-domain hosting, leave `PAGES_BASE_PATH` unset.
 
 ## البنية · Structure
 
