@@ -16,7 +16,7 @@ export default function Landing() {
 
   // Scroll-driven choreography for the third line + handoff to the gateway.
   const introOpacity = useTransform(scrollYProgress, [0, 0.28, 0.4], [1, 1, 0]);
-  const craftOpacity = useTransform(scrollYProgress, [0.32, 0.5, 0.78, 0.92], [0, 1, 1, 0]);
+  const craftOpacity = useTransform(scrollYProgress, [0.32, 0.5, 1], [0, 1, 1]);
   const craftScale = useTransform(scrollYProgress, [0.32, 0.6], [0.8, 1]);
   const craftY = useTransform(scrollYProgress, [0.32, 0.92], [60, -40]);
   const cueOpacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 1, 0]);
@@ -57,10 +57,19 @@ export default function Landing() {
           style={{ opacity: craftOpacity, scale: craftScale, y: craftY }}
           className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
         >
-          <p className="mb-4 text-sm tracking-[0.4em] text-[var(--color-accent)]">حِرف</p>
-          <h2 className="font-display text-5xl leading-tight text-[var(--color-ink)] sm:text-7xl md:text-8xl">
-            هنا تبدأ الحِرفة.
+          <h2 className="font-display text-6xl leading-none text-[var(--color-ink)] sm:text-8xl md:text-9xl">
+            حِرف
           </h2>
+          <p className="mt-5 text-xl text-[var(--color-ink-soft)] sm:text-2xl md:text-3xl">
+            كل صنعة لها حِرفة
+          </p>
+          <a
+            href="#about"
+            className="mt-9 inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-3.5 text-base font-medium text-[var(--color-canvas)] shadow-[var(--shadow-soft)] transition-transform hover:scale-105"
+          >
+            تعرّف علينا
+            <span aria-hidden>←</span>
+          </a>
         </motion.div>
 
         {/* Scroll cue */}

@@ -1,6 +1,8 @@
 import AbstractBackground from "@/components/AbstractBackground";
 import Nav from "@/components/Nav";
 import Landing from "@/components/Landing";
+import About from "@/components/About";
+import WhyHirf from "@/components/WhyHirf";
 import Gateway from "@/components/Gateway";
 import Journey from "@/components/Journey";
 import Advisor from "@/components/Advisor";
@@ -18,13 +20,15 @@ export default function Home() {
       <Nav />
       <main id="main" className="relative">
         <Landing />
+        <About />
+        <WhyHirf />
+        <Trust />
         <Gateway />
         <Journey />
         <Advisor />
         <Vault />
         <CraftSystem />
         <ToolsCenter />
-        <Trust />
         <FinalCTA />
       </main>
     </ExperienceProvider>

@@ -180,11 +180,37 @@ export interface TrustStat {
 }
 
 export const TRUST_STATS: TrustStat[] = [
-  { label: "عميل واثق", value: 30, prefix: "+" },
+  { label: "عميل", value: 30, prefix: "+" },
   { label: "رضا العملاء", value: 98, suffix: "٪" },
-  { label: "متجر مُطلق", value: 5, prefix: "+" },
-  { label: "مشروع تصميم", value: 10, prefix: "+" },
-  { label: "حملة إعلانية", value: 5, prefix: "+" },
+  { label: "متاجر إلكترونية", value: 5, prefix: "+" },
+  { label: "مشاريع تصميم", value: 10, prefix: "+" },
+  { label: "حملات إعلانية", value: 5, prefix: "+" },
+  { label: "حسابات تمت إدارتها", value: 5, prefix: "+" },
+];
+
+export interface WhyCard {
+  glyph: string;
+  title: string;
+  desc: string;
+}
+
+// "لماذا حِرف؟" — three value cards.
+export const WHY_CARDS: WhyCard[] = [
+  {
+    glyph: "◆",
+    title: "خبرة متكاملة",
+    desc: "من تأسيس المتجر إلى الهوية والإعلانات وإدارة الحسابات — كل ما يحتاجه مشروعك تحت سقف واحد.",
+  },
+  {
+    glyph: "✦",
+    title: "نتائج تتحدث",
+    desc: "نقيس كل خطوة بالأرقام ونحسّن باستمرار لنحوّل الزيارات إلى مبيعات ونموٍّ حقيقي.",
+  },
+  {
+    glyph: "❖",
+    title: "شراكة حقيقية",
+    desc: "نعمل بروح الفريق الواحد، نفهم نشاطك ونرافقك في كل مرحلة من رحلة مشروعك.",
+  },
 ];
 
 // Advisor question flow

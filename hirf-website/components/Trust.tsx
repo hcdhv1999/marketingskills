@@ -48,7 +48,7 @@ export default function Trust() {
           <h2 className="font-display text-3xl text-[var(--color-canvas)] sm:text-4xl">نتائج تتحدث عن نفسها</h2>
         </motion.div>
 
-        <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-5">
+        <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-3 lg:grid-cols-6">
           {TRUST_STATS.map((s, i) => (
             <motion.div
               key={s.label}
