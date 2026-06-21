@@ -8,6 +8,7 @@ import Journey from "@/components/Journey";
 import Advisor from "@/components/Advisor";
 import Vault from "@/components/Vault";
 import CraftSystem from "@/components/CraftSystem";
+import Packages from "@/components/Packages";
 import ToolsCenter from "@/components/tools/ToolsCenter";
 import Trust from "@/components/Trust";
 import FinalCTA from "@/components/FinalCTA";
@@ -28,6 +29,7 @@ export default function Home() {
         <Advisor />
         <Vault />
         <CraftSystem />
+        <Packages />
         <ToolsCenter />
         <FinalCTA />
       </main>

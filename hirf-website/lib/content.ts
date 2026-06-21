@@ -188,6 +188,49 @@ export const TRUST_STATS: TrustStat[] = [
   { label: "حسابات تمت إدارتها", value: 5, prefix: "+" },
 ];
 
+// "الباقات" — nested accordion structure (no package details yet).
+export interface PackageNode {
+  title: string;
+  children?: PackageNode[];
+}
+
+export const PACKAGES: PackageNode[] = [
+  {
+    title: "تأسيس وتصميم المتاجر الإلكترونية",
+    children: [
+      {
+        title: "تأسيس المتاجر الإلكترونية",
+        children: [
+          { title: "باقة رقمية" },
+          { title: "باقة نواة" },
+          { title: "باقة نمو" },
+          { title: "باقة ازدهار" },
+        ],
+      },
+      {
+        title: "تصميم متجرك الإلكتروني",
+        children: [{ title: "تصميم متجر فعال" }],
+      },
+    ],
+  },
+  {
+    title: "التصميم الجرافيكي",
+    children: [
+      { title: "الشعارات" },
+      { title: "الهويات البصرية" },
+      { title: "تصاميم مختارة" },
+    ],
+  },
+  {
+    title: "إدارة حسابات التواصل الاجتماعي",
+    children: [{ title: "تيك توك" }, { title: "إنستقرام" }, { title: "منصتين" }],
+  },
+  {
+    title: "الإعلانات الممولة",
+    children: [{ title: "منصة واحدة" }, { title: "منصتان" }, { title: "ثلاث منصات" }],
+  },
+];
+
 export interface WhyCard {
   glyph: string;
   title: string;
