@@ -2,9 +2,69 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PACKAGES, type PackageNode } from "@/lib/content";
+import { PACKAGES, type PackageNode, type PackageDetails, type InfoBlock } from "@/lib/content";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+function InfoBlockView({ block }: { block: InfoBlock }) {
+  return (
+    <div className="rounded-xl border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 p-4">
+      {block.title && <p className="font-display text-base text-[var(--color-ink)]">{block.title}</p>}
+      {block.body && <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-soft)]">{block.body}</p>}
+      {block.items && (
+        <ul className="mt-2 space-y-1.5">
+          {block.items.map((it) => (
+            <li key={it} className="flex gap-2 text-sm text-[var(--color-ink-soft)]">
+              <span className="text-[var(--color-accent)]" aria-hidden>•</span>
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function DetailList({ label, items }: { label: string; items: string[] }) {
+  return (
+    <div>
+      <p className="mb-1.5 text-sm font-medium text-[var(--color-ink)]">{label}</p>
+      <ul className="space-y-1.5">
+        {items.map((it) => (
+          <li key={it} className="flex gap-2 text-sm leading-relaxed text-[var(--color-ink-soft)]">
+            <span className="mt-0.5 text-[var(--color-accent)]" aria-hidden>◆</span>
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function PackageDetailsView({ d }: { d: PackageDetails }) {
+  return (
+    <div className="space-y-4 pt-1">
+      {(d.price || d.duration) && (
+        <div className="flex flex-wrap gap-2">
+          {d.price && (
+            <span className="rounded-full bg-[var(--color-ink)] px-4 py-1.5 text-sm font-medium text-[var(--color-canvas)]">
+              السعر: {d.price}
+            </span>
+          )}
+          {d.duration && (
+            <span className="rounded-full border border-[var(--color-ink)]/15 px-4 py-1.5 text-sm text-[var(--color-ink-soft)]">
+              المدة: {d.duration}
+            </span>
+          )}
+        </div>
+      )}
+      {d.description && <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">{d.description}</p>}
+      {d.features?.length ? <DetailList label="يشمل" items={d.features} /> : null}
+      {d.guarantees?.length ? <DetailList label="الضمانات" items={d.guarantees} /> : null}
+      {d.notes?.length ? <DetailList label="ملاحظات" items={d.notes} /> : null}
+    </div>
+  );
+}
 
 function AccordionNode({ node, depth }: { node: PackageNode; depth: number }) {
   const [open, setOpen] = useState(false);
@@ -48,10 +108,13 @@ function AccordionNode({ node, depth }: { node: PackageNode; depth: number }) {
             className="overflow-hidden"
           >
             <div className="space-y-3 border-r-2 border-[var(--color-accent)]/30 px-5 pb-5 pr-5">
+              {node.blocks?.map((block, i) => <InfoBlockView key={i} block={block} />)}
               {hasChildren ? (
                 node.children!.map((child) => (
                   <AccordionNode key={child.title} node={child} depth={depth + 1} />
                 ))
+              ) : node.details ? (
+                <PackageDetailsView d={node.details} />
               ) : (
                 <p className="pt-1 text-sm text-[var(--color-ink-soft)]">التفاصيل قريبًا</p>
               )}

@@ -188,10 +188,28 @@ export const TRUST_STATS: TrustStat[] = [
   { label: "حسابات تمت إدارتها", value: 5, prefix: "+" },
 ];
 
-// "الباقات" — nested accordion structure (no package details yet).
+// "الباقات" — nested accordion structure with full package details.
+export interface PackageDetails {
+  price?: string;
+  duration?: string;
+  description?: string;
+  features?: string[];
+  guarantees?: string[];
+  notes?: string[];
+}
+
+// Category-level rich content (e.g. graphic-design callout + pricing list).
+export interface InfoBlock {
+  title?: string;
+  body?: string;
+  items?: string[];
+}
+
 export interface PackageNode {
   title: string;
   children?: PackageNode[];
+  details?: PackageDetails;
+  blocks?: InfoBlock[];
 }
 
 export const PACKAGES: PackageNode[] = [
@@ -215,6 +233,21 @@ export const PACKAGES: PackageNode[] = [
   },
   {
     title: "التصميم الجرافيكي",
+    blocks: [
+      {
+        title: "ما عندك هوية جاهزة؟",
+        body: "نجهّز مرجعًا بصريًا مصغرًا بـ 199 ر.س — أساس يضبط شغلك ويوحّد مظهرك قبل أي تصميم.",
+      },
+      {
+        title: "تفاصيل الأسعار:",
+        items: [
+          "الأسعار تشمل تعديلين",
+          "التعديل الإضافي 49 ر.س",
+          "التسليم بكل الصيغ المفتوحة",
+          "3 قطع فأكثر خصم 10%",
+        ],
+      },
+    ],
     children: [
       { title: "الشعارات" },
       { title: "الهويات البصرية" },
