@@ -20,7 +20,7 @@ export default function About() {
             الاجتماعي.
           </p>
           <a
-            href="#gateway"
+            href="#packages"
             className="mt-9 inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-3.5 text-base font-medium text-[var(--color-canvas)] shadow-[var(--shadow-soft)] transition-transform hover:scale-105"
           >
             ابدأ معنا

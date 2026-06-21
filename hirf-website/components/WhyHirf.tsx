@@ -18,7 +18,7 @@ export default function WhyHirf() {
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">لماذا حِرف؟</h2>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {WHY_CARDS.map((card, i) => (
             <motion.div
               key={card.title}

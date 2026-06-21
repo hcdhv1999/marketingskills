@@ -3,11 +3,11 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const LINKS = [
-  { href: "#journey", label: "الرحلة" },
-  { href: "#advisor", label: "المستشار" },
-  { href: "#vault", label: "الخزينة" },
-  { href: "#system", label: "النظام" },
-  { href: "#tools", label: "الأدوات" },
+  { href: "#about", label: "من نحن" },
+  { href: "#packages", label: "الباقات" },
+  { href: "#work", label: "أعمالنا" },
+  { href: "#testimonials", label: "آراء العملاء" },
+  { href: "#faq", label: "الأسئلة" },
 ];
 
 export default function Nav() {
@@ -39,7 +39,7 @@ export default function Nav() {
             ))}
           </ul>
           <a
-            href="#final"
+            href="#packages"
             className="rounded-full bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-[var(--color-canvas)] transition-transform hover:scale-105"
           >
             ابدأ مشروعك

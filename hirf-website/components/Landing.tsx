@@ -63,13 +63,24 @@ export default function Landing() {
           <p className="mt-5 text-xl text-[var(--color-ink-soft)] sm:text-2xl md:text-3xl">
             كل صنعة لها حِرفة
           </p>
-          <a
-            href="#about"
-            className="mt-9 inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-3.5 text-base font-medium text-[var(--color-canvas)] shadow-[var(--shadow-soft)] transition-transform hover:scale-105"
-          >
-            تعرّف علينا
-            <span aria-hidden>←</span>
-          </a>
+          <p className="mx-auto mt-4 max-w-xl text-balance text-[var(--color-ink-soft)]">
+            وكالة رقمية سعودية نبني حضورك الرقمي: متاجر، هوية، محتوى، وإعلانات.
+          </p>
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href="#packages"
+              className="inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-3.5 text-base font-medium text-[var(--color-canvas)] shadow-[var(--shadow-soft)] transition-transform hover:scale-105"
+            >
+              ابدأ مشروعك
+              <span aria-hidden>←</span>
+            </a>
+            <a
+              href="https://wa.me/"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-ink)]/20 px-8 py-3.5 text-base font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)]/5"
+            >
+              تحدث معنا
+            </a>
+          </div>
         </motion.div>
 
         {/* Scroll cue */}
