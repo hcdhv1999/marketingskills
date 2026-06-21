@@ -1,0 +1,78 @@
+import type { Metadata, Viewport } from "next";
+import { Tajawal, Reem_Kufi } from "next/font/google";
+import "./globals.css";
+
+const tajawal = Tajawal({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "700", "800"],
+  variable: "--font-tajawal",
+  display: "swap",
+});
+
+const reemKufi = Reem_Kufi({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-reem",
+  display: "swap",
+});
+
+const SITE_URL = "https://hirf.example";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "حِرف — حيث تُبنى المشاريع العظيمة",
+    template: "%s · حِرف",
+  },
+  description:
+    "حِرف وكالة رقمية سعودية تبني المتاجر الإلكترونية والعلامات التجارية والحملات والمواقع. تجربة رقمية غامرة تحوّل فكرتك إلى مشروع ناجح.",
+  keywords: [
+    "وكالة رقمية",
+    "متجر إلكتروني",
+    "هوية بصرية",
+    "حملات إعلانية",
+    "تصميم مواقع",
+    "السعودية",
+    "حِرف",
+  ],
+  authors: [{ name: "حِرف" }],
+  openGraph: {
+    type: "website",
+    locale: "ar_SA",
+    url: SITE_URL,
+    siteName: "حِرف",
+    title: "حِرف — حيث تُبنى المشاريع العظيمة",
+    description:
+      "تجربة رقمية غامرة تحوّل فكرتك إلى مشروع ناجح. متاجر، علامات، حملات، ومواقع.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "حِرف — حيث تُبنى المشاريع العظيمة",
+    description: "تجربة رقمية غامرة تحوّل فكرتك إلى مشروع ناجح.",
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FCF6F6",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="ar" dir="rtl" className={`${tajawal.variable} ${reemKufi.variable}`}>
+      <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[100] focus:rounded-full focus:bg-[var(--color-ink)] focus:px-5 focus:py-2 focus:text-[var(--color-canvas)]"
+        >
+          تخطَّ إلى المحتوى
+        </a>
+        {children}
+      </body>
+    </html>
+  );
+}
