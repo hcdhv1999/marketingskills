@@ -1,72 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { WORKS, type Work } from "@/lib/content";
+import { motion } from "framer-motion";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-function WorkCard({ work }: { work: Work }) {
-  const [open, setOpen] = useState(false);
-  const hasLogo = !!work.logo;
-  const hasBanners = !!work.banners?.length;
-
-  return (
-    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] shadow-[var(--shadow-soft)]">
-      <button
-        onClick={() => hasBanners && setOpen((v) => !v)}
-        aria-expanded={open}
-        className={`flex aspect-[4/3] w-full items-center justify-center p-4 ${hasBanners ? "cursor-pointer" : "cursor-default"}`}
-      >
-        {hasLogo ? (
-          // Logo dominates the card — no border, original aspect preserved.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={work.logo} alt={work.name} className="h-full w-full object-contain" />
-        ) : (
-          <span className="text-center">
-            <span className="block font-display text-3xl text-[var(--color-ink)]">{work.name}</span>
-            <span className="mt-2 block text-[var(--color-accent)]">{work.field}</span>
-          </span>
-        )}
-      </button>
-
-      <AnimatePresence initial={false}>
-        {open && hasBanners && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease: EASE }}
-            className="overflow-hidden"
-          >
-            <div className="flex flex-col gap-3 p-3">
-              {hasLogo && (
-                <p className="px-2 text-center text-sm text-[var(--color-ink-soft)]">
-                  <span className="font-display text-[var(--color-ink)]">{work.name}</span> — {work.field}
-                </p>
-              )}
-              {work.banners!.map((src, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={i} src={src} alt={`${work.name} ${i + 1}`} className="w-full rounded-xl" />
-              ))}
-              <button
-                onClick={() => setOpen(false)}
-                className="mx-auto mt-1 rounded-full border border-[var(--color-ink)]/15 px-5 py-1.5 text-sm text-[var(--color-ink-soft)] hover:bg-[var(--color-ink)]/5"
-              >
-                إغلاق
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </article>
-  );
-}
+const WORKS_DRIVE_URL =
+  "https://drive.google.com/drive/folders/1Si4t-OLSsuLwj7HGxRwUfSim2NzUdSER?usp=sharing";
 
 export default function Work() {
   return (
     <section id="work" className="relative px-6 py-28" aria-label="أعمالنا">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,19 +19,32 @@ export default function Work() {
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">أعمالنا</h2>
         </motion.div>
 
-        <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {WORKS.map((w, i) => (
-            <motion.div
-              key={w.name + i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto flex max-w-xl flex-col items-center gap-5 rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-10 text-center shadow-[var(--shadow-soft)]"
+        >
+          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1f7a46]/12 text-[#1f7a46]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-8 w-8" aria-hidden>
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m21 15-5-5L5 21" />
+            </svg>
+          </span>
+          <p className="text-lg leading-relaxed text-[var(--color-ink)]">
+            لمشاهدة الأعمال بكامل الجودة{" "}
+            <a
+              href={WORKS_DRIVE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display text-[var(--color-accent)] underline underline-offset-4 transition-colors hover:text-[var(--color-ink)]"
             >
-              <WorkCard work={w} />
-            </motion.div>
-          ))}
-        </div>
+              اضغط هنا
+            </a>
+          </p>
+        </motion.div>
       </div>
     </section>
   );

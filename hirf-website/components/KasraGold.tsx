@@ -2,13 +2,14 @@
 
 import { useEffect } from "react";
 
-// Colors only the kasra (ِ U+0650) that follows ح (so حِرف / حِرفة) in gold,
-// across all rendered text — including dynamically swapped content.
+// Colors the kasra (ِ) that follows ح (so حِرف / حِرفة) in brand gold,
+// across the whole site, including content swapped in dynamically.
 export default function KasraGold() {
   useEffect(() => {
     const KASRA = "ِ";
     const HEH = "ح";
     const seq = HEH + KASRA;
+    const GOLD = "var(--color-accent)";
 
     const processTextNode = (textNode: Text) => {
       const text = textNode.nodeValue;
@@ -17,7 +18,7 @@ export default function KasraGold() {
       if (!parent) return;
       if (parent.classList.contains("kasra-gold")) return;
       const tag = parent.tagName;
-      if (tag === "SCRIPT" || tag === "STYLE") return;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA") return;
 
       const frag = document.createDocumentFragment();
       let last = 0;
@@ -26,6 +27,7 @@ export default function KasraGold() {
           frag.appendChild(document.createTextNode(text.slice(last, i + 1)));
           const span = document.createElement("span");
           span.className = "kasra-gold";
+          span.style.color = GOLD;
           span.textContent = KASRA;
           frag.appendChild(span);
           last = i + 2;
@@ -37,7 +39,7 @@ export default function KasraGold() {
       try {
         textNode.replaceWith(frag);
       } catch {
-        /* node already detached by React — ignore */
+        /* node detached by React — ignore */
       }
     };
 
@@ -56,7 +58,13 @@ export default function KasraGold() {
       targets.forEach(processTextNode);
     };
 
-    processRoot(document.body);
+    const runAll = () => processRoot(document.body);
+
+    runAll();
+    // Re-run to catch late content (fonts, animations, client-only sections).
+    const t1 = setTimeout(runAll, 300);
+    const t2 = setTimeout(runAll, 1200);
+    if (document.fonts?.ready) document.fonts.ready.then(runAll).catch(() => {});
 
     const obs = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -64,7 +72,12 @@ export default function KasraGold() {
       }
     });
     obs.observe(document.body, { childList: true, subtree: true });
-    return () => obs.disconnect();
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      obs.disconnect();
+    };
   }, []);
 
   return null;
