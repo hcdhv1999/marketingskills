@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function FinalCTA() {
   const root = useRef<HTMLDivElement>(null);
@@ -75,7 +76,9 @@ export default function FinalCTA() {
             <span className="transition-transform group-hover:-translate-x-1" aria-hidden>←</span>
           </a>
           <a
-            href="https://wa.me/"
+            href={whatsappLink("استشارة عامة")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-[var(--color-ink)]/20 px-8 py-4 text-lg font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)]/5"
           >
             تحدث معنا

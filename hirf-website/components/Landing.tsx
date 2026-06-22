@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function Landing() {
   const ref = useRef<HTMLDivElement>(null);
@@ -75,7 +76,9 @@ export default function Landing() {
               <span aria-hidden>←</span>
             </a>
             <a
-              href="https://wa.me/"
+              href={whatsappLink("استشارة عامة")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-[var(--color-ink)]/20 px-8 py-3.5 text-base font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)]/5"
             >
               تحدث معنا

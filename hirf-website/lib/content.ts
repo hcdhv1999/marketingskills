@@ -181,7 +181,7 @@ export interface TrustStat {
 
 export const TRUST_STATS: TrustStat[] = [
   { label: "عميل", value: 30, prefix: "+" },
-  { label: "رضا العملاء", value: 98, suffix: "٪" },
+  { label: "رضا العملاء", value: 98, suffix: "%" },
   { label: "متاجر إلكترونية", value: 5, prefix: "+" },
   { label: "مشاريع تصميم", value: 10, prefix: "+" },
   { label: "حملات إعلانية", value: 5, prefix: "+" },

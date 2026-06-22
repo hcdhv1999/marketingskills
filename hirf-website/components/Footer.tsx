@@ -1,4 +1,6 @@
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+import { whatsappLink } from "@/lib/whatsapp";
+
+const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
   {
     title: "الخدمات",
     links: [
@@ -20,15 +22,17 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "التواصل",
     links: [
-      { label: "ابدأ مشروعك", href: "#packages" },
-      { label: "تحدث معنا", href: "https://wa.me/" },
+      { label: "تحدث معنا", href: whatsappLink("استشارة عامة"), external: true },
+      { label: "Instagram — hirf_sa", href: "https://instagram.com/hirf_sa", external: true },
+      { label: "TikTok — hirf_sa", href: "https://www.tiktok.com/@hirf_sa", external: true },
+      { label: "X — hirf_sa", href: "https://x.com/hirf_sa", external: true },
     ],
   },
   {
     title: "السياسات",
     links: [
-      { label: "سياسة الخصوصية", href: "#" },
-      { label: "الشروط والأحكام", href: "#" },
+      { label: "سياسة الخصوصية", href: "/privacy" },
+      { label: "سياسة الدفع والتسليم", href: "/payment-delivery" },
     ],
   },
 ];
@@ -41,9 +45,7 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <span className="font-display text-3xl text-[var(--color-canvas)]">حِرف</span>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--color-canvas)]/60">
-              كل صنعة لها حِرفة.
-            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-canvas)]/60">كل صنعة لها حِرفة.</p>
           </div>
           {COLUMNS.map((col) => (
             <nav key={col.title} aria-label={col.title}>
@@ -53,6 +55,7 @@ export default function Footer() {
                   <li key={l.label}>
                     <a
                       href={l.href}
+                      {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="text-sm text-[var(--color-canvas)]/60 transition-colors hover:text-[var(--color-accent-soft)]"
                     >
                       {l.label}

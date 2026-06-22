@@ -24,7 +24,7 @@ function Counter({ stat, start }: { stat: TrustStat; start: boolean }) {
   return (
     <span className="font-display text-5xl tabular-nums text-[var(--color-canvas)] sm:text-6xl">
       {stat.prefix ?? ""}
-      {n.toLocaleString("ar-SA")}
+      {n.toLocaleString("en-US")}
       {stat.suffix ?? ""}
     </span>
   );

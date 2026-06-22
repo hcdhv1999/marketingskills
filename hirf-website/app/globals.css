@@ -144,3 +144,10 @@ body {
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { scrollbar-width: none; }
+
+/* Important notes / alerts — clear green box */
+.alert-green {
+  background: #e7f6ec;
+  border: 1px solid #b8e0c4;
+  color: #1f7a46;
+}

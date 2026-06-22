@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useExperience } from "./ExperienceContext";
 
 type Need = "store" | "design" | "social" | "ads";
 type Stage = "start" | "grow";
@@ -26,11 +27,18 @@ const RESULT: Record<Need, Record<Stage, string>> = {
 };
 
 export default function PackageAdvisor() {
+  const { requestPackage } = useExperience();
   const [need, setNeed] = useState<Need | null>(null);
   const [stage, setStage] = useState<Stage | null>(null);
 
   const done = need && stage;
   const recommendation = done ? RESULT[need!][stage!] : null;
+
+  const goToPackage = () => {
+    if (!recommendation) return;
+    requestPackage(recommendation);
+    document.getElementById("packages")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section id="advisor" className="relative px-6 py-28" aria-label="اقترح الباقة المناسبة">
@@ -94,12 +102,12 @@ export default function PackageAdvisor() {
               >
                 <p className="text-sm text-[var(--color-ink-soft)]">الباقة المقترحة لك</p>
                 <p className="mt-1 font-display text-2xl text-[var(--color-ink)]">{recommendation}</p>
-                <a
-                  href="#packages"
+                <button
+                  onClick={goToPackage}
                   className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-medium text-[var(--color-canvas)] transition-transform hover:scale-105"
                 >
                   شاهد تفاصيل الباقة <span aria-hidden>←</span>
-                </a>
+                </button>
               </motion.div>
             )}
           </AnimatePresence>

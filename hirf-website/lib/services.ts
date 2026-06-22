@@ -23,8 +23,10 @@ export interface ServiceInfoBlock {
 export interface SubCategory {
   id: string;
   label: string;
+  cta: string;
   packages: PackageCard[];
   info?: ServiceInfoBlock[];
+  selectable?: boolean; // renders as an order tool (تصاميم مختارة)
 }
 
 export interface Service {
@@ -46,6 +48,7 @@ export const SERVICES: Service[] = [
       {
         id: "new",
         label: "تأسيس متجر جديد",
+        cta: "أسس متجرك",
         packages: [
           {
             name: "باقة رقمية",
@@ -167,6 +170,7 @@ export const SERVICES: Service[] = [
       {
         id: "redesign",
         label: "تصميم متجر قائم",
+        cta: "صمم متجرك",
         packages: [
           {
             name: "تصميم متجر فعال",
@@ -197,6 +201,7 @@ export const SERVICES: Service[] = [
       {
         id: "logos",
         label: "الشعارات",
+        cta: "صمم شعارك",
         packages: [
           {
             name: "شعار للمشاريع الناشئة",
@@ -231,6 +236,7 @@ export const SERVICES: Service[] = [
       {
         id: "identity",
         label: "الهوية البصرية",
+        cta: "صمم هويتك البصرية",
         info: [
           { body: "النواة ثابتة في كل باقة، والتطبيقات تختارها أنت من قائمة التطبيقات." },
           { body: "التطبيق العادي يُحسب اختيارًا واحدًا، والمميز يُحسب اختيارين." },
@@ -301,6 +307,8 @@ export const SERVICES: Service[] = [
       {
         id: "selected",
         label: "تصاميم مختارة",
+        cta: "اختر ما يناسبك",
+        selectable: true,
         info: [
           {
             title: "ما عندك هوية جاهزة؟",
@@ -372,6 +380,7 @@ export const SERVICES: Service[] = [
       {
         id: "social-packages",
         label: "الباقات",
+        cta: "نمِّ حسابك",
         packages: [
           {
             name: "باقة الكلاسيك",
@@ -440,6 +449,7 @@ export const SERVICES: Service[] = [
       {
         id: "ads-packages",
         label: "الباقات",
+        cta: "زد مبيعاتك",
         packages: [
           {
             name: "منصة واحدة",
@@ -483,6 +493,60 @@ export const SERVICES: Service[] = [
           },
         ],
       },
+    ],
+  },
+];
+
+// التصاميم المختارة — selectable items with numeric prices for the order tool.
+// Labels and prices match the approved per-piece pricing exactly.
+export interface DesignItem {
+  label: string;
+  price: number;
+  note?: string;
+}
+export interface DesignGroup {
+  title: string;
+  items: DesignItem[];
+}
+
+export const SELECTED_DESIGNS: DesignGroup[] = [
+  {
+    title: "قطع الاستخدام اليومي",
+    items: [
+      { label: "منشور تواصل اجتماعي", price: 85 },
+      { label: "قصة", price: 59 },
+      { label: "تصميم إعلان ممول (مقاس واحد)", price: 149 },
+      { label: "بنر متجر إلكتروني", price: 119, note: "3 بنرات فأكثر — 99 ر.س للبنر" },
+      { label: "دعوة / تهنئة / إعلان مناسبة", price: 119 },
+      { label: "غلاف حسابات التواصل", price: 149 },
+      { label: "غلاف واتساب أعمال", price: 119 },
+    ],
+  },
+  {
+    title: "قطع الأعمال والمطبوعات",
+    items: [
+      { label: "بطاقة عمل", price: 199 },
+      { label: "توقيع إيميل", price: 119 },
+      { label: "ختم", price: 149 },
+      { label: "ورق رسمي", price: 179 },
+      { label: "قالب فاتورة / عرض سعر", price: 219 },
+      { label: "ملصق / ستيكر", price: 149 },
+      { label: "إنفوجرافيك بسيط (حتى 5 عناصر)", price: 249 },
+      { label: "إنفوجرافيك تفصيلي (حتى 10 عناصر)", price: 399 },
+    ],
+  },
+  {
+    title: "القطع الكبيرة",
+    items: [
+      { label: "منيو (حتى 4 صفحات/وجهات)", price: 449 },
+      { label: "لوحة محل", price: 399 },
+      { label: "تغليف / أكياس", price: 449 },
+      { label: "يونيفورم", price: 349 },
+      { label: "تصميم سيارة", price: 549 },
+      { label: "عرض تقديمي (حتى 10 شرائح)", price: 649 },
+      { label: "بروفايل أساسي (حتى 5 صفحات)", price: 649 },
+      { label: "بروفايل احترافي (حتى 8 صفحات)", price: 949 },
+      { label: "الصفحة الإضافية للبروفايل", price: 79 },
     ],
   },
 ];
