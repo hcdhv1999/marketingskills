@@ -1,4 +1,5 @@
 import { whatsappLink } from "@/lib/whatsapp";
+import { gk } from "@/lib/goldKasra";
 
 function IconWhatsApp() {
   return (
@@ -59,8 +60,8 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl rounded-[2rem] card-ink p-10 sm:p-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
-            <span className="font-display text-3xl text-[var(--color-canvas)]">حِرف</span>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--color-canvas)]/60">كل صنعة لها حِرفة.</p>
+            <span className="font-display text-3xl text-[var(--color-canvas)]">{gk("حِرف")}</span>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-canvas)]/60">{gk("كل صنعة لها حِرفة.")}</p>
           </div>
 
           <nav aria-label="التواصل">

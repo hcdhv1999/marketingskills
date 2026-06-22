@@ -9,6 +9,7 @@ import {
   type ServiceInfoBlock,
 } from "@/lib/services";
 import { whatsappLink } from "@/lib/whatsapp";
+import { gk } from "@/lib/goldKasra";
 import { useExperience } from "./ExperienceContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -69,7 +70,7 @@ function Card({
       )}
 
       {pkg.description && (
-        <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-soft)]">{pkg.description}</p>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-soft)]">{gk(pkg.description)}</p>
       )}
 
       {pkg.features?.length ? (
@@ -77,7 +78,7 @@ function Card({
           {pkg.features.map((f) => (
             <li key={f} className="flex gap-2 text-sm leading-relaxed text-[var(--color-ink)]">
               <span className="mt-0.5 shrink-0 text-[var(--color-accent)]" aria-hidden>✓</span>
-              <span>{f}</span>
+              <span>{gk(f)}</span>
             </li>
           ))}
         </ul>
@@ -87,7 +88,7 @@ function Card({
         <div className="mt-4 rounded-2xl bg-[var(--color-ink)]/5 p-3">
           <p className="mb-1 text-xs font-medium text-[var(--color-ink)]">الضمانات</p>
           {pkg.guarantees.map((g) => (
-            <p key={g} className="text-xs leading-relaxed text-[var(--color-ink-soft)]">• {g}</p>
+            <p key={g} className="text-xs leading-relaxed text-[var(--color-ink-soft)]">• {gk(g)}</p>
           ))}
         </div>
       ) : null}
@@ -95,7 +96,7 @@ function Card({
       {pkg.notes?.length ? (
         <div className="mt-3 space-y-2">
           {pkg.notes.map((n) => (
-            <NoteBox key={n}>{n}</NoteBox>
+            <NoteBox key={n}>{gk(n)}</NoteBox>
           ))}
         </div>
       ) : null}
@@ -381,7 +382,7 @@ export default function PackagesShowcase() {
           <div className="mx-auto mt-4 flex max-w-3xl items-start gap-3 rounded-2xl border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/8 px-5 py-4">
             <span className="text-xl text-[var(--color-accent)]" aria-hidden>✦</span>
             <p className="text-sm leading-relaxed">
-              <span className="font-display text-[var(--color-ink)]">ضمان حِرف: </span>
+              <span className="font-display text-[var(--color-ink)]">{gk("ضمان حِرف")}: </span>
               <span className="text-[var(--color-ink-soft)]">{service.guarantee}</span>
             </p>
           </div>
