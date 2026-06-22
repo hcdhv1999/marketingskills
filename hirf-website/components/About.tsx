@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { gk } from "@/lib/goldKasra";
 
 export default function About() {
   return (
@@ -14,9 +15,9 @@ export default function About() {
         >
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">من نحن</h2>
           <p className="mx-auto mt-6 max-w-3xl text-balance text-lg leading-loose text-[var(--color-ink-soft)] sm:text-xl">
-            حِرف وكالة رقمية متخصصة في بناء الحضور الرقمي للمشاريع والعلامات التجارية عبر تأسيس
-            المتاجر الإلكترونية، التصميم الجرافيكي، إدارة الحملات الإعلانية، وإدارة حسابات التواصل
-            الاجتماعي.
+            {gk(
+              "حِرف وكالة رقمية متخصصة في بناء الحضور الرقمي للمشاريع والعلامات التجارية عبر تأسيس المتاجر الإلكترونية، التصميم الجرافيكي، إدارة الحملات الإعلانية، وإدارة حسابات التواصل الاجتماعي."
+            )}
           </p>
           <a
             href="#packages"

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { WHY_CARDS } from "@/lib/content";
+import { gk } from "@/lib/goldKasra";
 
 export default function WhyHirf() {
   return (
@@ -14,7 +15,7 @@ export default function WhyHirf() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">لماذا حِرف؟</h2>
+          <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">{gk("لماذا حِرف؟")}</h2>
         </motion.div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

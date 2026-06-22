@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FAQS } from "@/lib/content";
+import { gk } from "@/lib/goldKasra";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -32,7 +33,7 @@ export default function FAQ() {
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-right transition-colors hover:bg-[var(--color-ink)]/5"
                 >
-                  <span className="font-display text-lg text-[var(--color-ink)]">{item.q}</span>
+                  <span className="font-display text-lg text-[var(--color-ink)]">{gk(item.q)}</span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.3, ease: EASE }}
@@ -51,7 +52,7 @@ export default function FAQ() {
                       transition={{ duration: 0.4, ease: EASE }}
                       className="overflow-hidden"
                     >
-                      <p className="px-5 pb-5 leading-relaxed text-[var(--color-ink-soft)]">{item.a}</p>
+                      <p className="px-5 pb-5 leading-relaxed text-[var(--color-ink-soft)]">{gk(item.a)}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

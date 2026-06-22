@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { gk } from "@/lib/goldKasra";
 
 export default function Landing() {
   return (
@@ -14,7 +15,7 @@ export default function Landing() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="font-display text-7xl leading-none text-[var(--color-ink)] sm:text-8xl md:text-9xl"
       >
-        حِرف
+        {gk("حِرف")}
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
@@ -22,7 +23,7 @@ export default function Landing() {
         transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="mt-6 text-2xl text-[var(--color-ink-soft)] sm:text-3xl md:text-4xl"
       >
-        كل صنعة لها حِرفة
+        {gk("كل صنعة لها حِرفة")}
       </motion.p>
 
       {/* Scroll cue → من نحن */}
