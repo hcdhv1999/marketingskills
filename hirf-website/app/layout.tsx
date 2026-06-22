@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Tajawal, Reem_Kufi } from "next/font/google";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
+import KasraGold from "@/components/KasraGold";
 
-const tajawal = Tajawal({
+const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "700", "800"],
-  variable: "--font-tajawal",
-  display: "swap",
-});
-
-const reemKufi = Reem_Kufi({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-reem",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ibm",
   display: "swap",
 });
 
@@ -63,7 +57,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${tajawal.variable} ${reemKufi.variable}`}>
+    <html lang="ar" dir="rtl" className={ibmPlexArabic.variable}>
       <body>
         <a
           href="#main"
@@ -71,6 +65,7 @@ export default function RootLayout({
         >
           تخطَّ إلى المحتوى
         </a>
+        <KasraGold />
         {children}
       </body>
     </html>

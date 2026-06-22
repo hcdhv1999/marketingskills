@@ -24,7 +24,7 @@ function Counter({ stat, start }: { stat: TrustStat; start: boolean }) {
   return (
     <span className="font-display text-5xl tabular-nums text-[var(--color-canvas)] sm:text-6xl">
       {stat.prefix ?? ""}
-      {n.toLocaleString("ar-SA")}
+      {n.toLocaleString("en-US")}
       {stat.suffix ?? ""}
     </span>
   );
@@ -44,11 +44,10 @@ export default function Trust() {
           viewport={{ once: true }}
           className="relative mb-12 text-center"
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent-soft)]">الثقة بالأرقام</p>
           <h2 className="font-display text-3xl text-[var(--color-canvas)] sm:text-4xl">نتائج تتحدث عن نفسها</h2>
         </motion.div>
 
-        <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-5">
+        <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-3 lg:grid-cols-6">
           {TRUST_STATS.map((s, i) => (
             <motion.div
               key={s.label}

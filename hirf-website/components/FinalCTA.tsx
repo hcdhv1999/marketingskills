@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function FinalCTA() {
   const root = useRef<HTMLDivElement>(null);
@@ -68,24 +69,22 @@ export default function FinalCTA() {
 
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href="#gateway"
+            href="#packages"
             className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-4 text-lg font-medium text-[var(--color-canvas)] shadow-[var(--shadow-soft)] transition-transform hover:scale-105"
           >
-            ابدأ مشروعك
+            ابدأ مشروعك الآن
             <span className="transition-transform group-hover:-translate-x-1" aria-hidden>←</span>
           </a>
           <a
-            href="https://wa.me/"
+            href={whatsappLink("استشارة عامة")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-[var(--color-ink)]/20 px-8 py-4 text-lg font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)]/5"
           >
             تحدث معنا
           </a>
         </div>
       </div>
-
-      <footer className="absolute bottom-6 inset-x-0 text-center text-sm text-[var(--color-ink-soft)]">
-        <span className="font-display text-base text-[var(--color-ink)]">حِرف</span> — وكالة رقمية سعودية · صُنع بحِرفة
-      </footer>
     </section>
   );
 }
