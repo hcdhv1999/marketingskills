@@ -16,15 +16,15 @@ function WorkCard({ work }: { work: Work }) {
       <button
         onClick={() => hasBanners && setOpen((v) => !v)}
         aria-expanded={open}
-        className={`flex aspect-[3/2] w-full items-center justify-center p-8 ${hasBanners ? "cursor-pointer" : "cursor-default"}`}
+        className={`flex aspect-[4/3] w-full items-center justify-center p-4 ${hasBanners ? "cursor-pointer" : "cursor-default"}`}
       >
         {hasLogo ? (
-          // Logo only — no border, original aspect preserved, centered.
+          // Logo dominates the card — no border, original aspect preserved.
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={work.logo} alt={work.name} className="max-h-full max-w-full object-contain" />
+          <img src={work.logo} alt={work.name} className="h-full w-full object-contain" />
         ) : (
           <span className="text-center">
-            <span className="block font-display text-2xl text-[var(--color-ink)]">{work.name}</span>
+            <span className="block font-display text-3xl text-[var(--color-ink)]">{work.name}</span>
             <span className="mt-2 block text-[var(--color-accent)]">{work.field}</span>
           </span>
         )}
