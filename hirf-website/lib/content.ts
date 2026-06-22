@@ -867,8 +867,16 @@ export const FAQS: FAQItem[] = [
 export interface Work {
   name: string;
   field: string;
+  logo?: string; // e.g. /works/zod/logo.png — shown alone in the closed card
+  banners?: string[]; // e.g. ["/works/zod/1.jpg", ...] — shown on expand
 }
 
 export const WORKS: Work[] = [
-  { name: "زود", field: "متجر إلكتروني" },
+  {
+    name: "زود",
+    field: "متجر إلكتروني",
+    // Add the asset files under public/works/zod/ then fill these in:
+    // logo: "/works/zod/logo.png",
+    // banners: ["/works/zod/1.jpg", "/works/zod/2.jpg", "/works/zod/3.jpg", "/works/zod/4.jpg"],
+  },
 ];
