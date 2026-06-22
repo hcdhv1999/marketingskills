@@ -35,8 +35,12 @@ export interface Service {
   tagline: string;
   glyph: string;
   note?: string;
+  guarantee?: string; // ضمان حِرف — shown for all services except paid ads
   subCategories: SubCategory[];
 }
+
+export const HIRF_GUARANTEE =
+  "إذا لم تناسبك جميع المقترحات الأولية، نعيد تنفيذ اتجاه تصميمي جديد كليًا مرة واحدة مجانًا.";
 
 export const SERVICES: Service[] = [
   {
@@ -44,6 +48,7 @@ export const SERVICES: Service[] = [
     title: "تأسيس وتصميم المتاجر الإلكترونية",
     tagline: "من الفكرة إلى متجر يبيع",
     glyph: "◉",
+    guarantee: HIRF_GUARANTEE,
     subCategories: [
       {
         id: "new",
@@ -197,6 +202,7 @@ export const SERVICES: Service[] = [
     title: "التصميم الجرافيكي",
     tagline: "هوية بصرية لا تُنسى",
     glyph: "❖",
+    guarantee: HIRF_GUARANTEE,
     subCategories: [
       {
         id: "logos",
@@ -375,6 +381,7 @@ export const SERVICES: Service[] = [
     title: "إدارة حسابات التواصل الاجتماعي",
     tagline: "محتوى يصنع تفاعلًا",
     glyph: "✦",
+    guarantee: HIRF_GUARANTEE,
     note: "كل باقات الفيديو تعتمد على المواد المصوّرة من العميل (Raw Footage) — دورنا يبدأ من استلام المقاطع الخام.",
     subCategories: [
       {

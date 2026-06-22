@@ -85,7 +85,7 @@ function Card({
 
       {pkg.guarantees?.length ? (
         <div className="mt-4 rounded-2xl bg-[var(--color-ink)]/5 p-3">
-          <p className="mb-1 text-xs font-medium text-[var(--color-ink)]">ضمان حِرف</p>
+          <p className="mb-1 text-xs font-medium text-[var(--color-ink)]">الضمانات</p>
           {pkg.guarantees.map((g) => (
             <p key={g} className="text-xs leading-relaxed text-[var(--color-ink-soft)]">• {g}</p>
           ))}
@@ -371,6 +371,17 @@ export default function PackagesShowcase() {
         {service.note && (
           <div className="mx-auto mt-6 max-w-3xl">
             <NoteBox>{service.note}</NoteBox>
+          </div>
+        )}
+
+        {/* ضمان حِرف — shown for all services except paid ads */}
+        {service.guarantee && (
+          <div className="mx-auto mt-4 flex max-w-3xl items-start gap-3 rounded-2xl border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/8 px-5 py-4">
+            <span className="text-xl text-[var(--color-accent)]" aria-hidden>✦</span>
+            <p className="text-sm leading-relaxed">
+              <span className="font-display text-[var(--color-ink)]">ضمان حِرف: </span>
+              <span className="text-[var(--color-ink-soft)]">{service.guarantee}</span>
+            </p>
           </div>
         )}
 

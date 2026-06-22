@@ -28,7 +28,9 @@ export default function Testimonials() {
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
               className="flex h-full flex-col rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-7 shadow-[var(--shadow-soft)]"
             >
-              <span className="font-display text-4xl leading-none text-[var(--color-accent)]" aria-hidden>”</span>
+              <div className="text-[var(--color-accent)]" aria-label={`${t.rating} من 5`}>
+                {"★".repeat(t.rating)}
+              </div>
               <blockquote className="mt-3 flex-1 leading-relaxed text-[var(--color-ink)]">{t.quote}</blockquote>
               <figcaption className="mt-5">
                 <span className="block font-display text-[var(--color-ink)]">{t.name}</span>
