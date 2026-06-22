@@ -311,7 +311,6 @@ export default function PackagesShowcase() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent)]">خدماتنا وأسعارنا</p>
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">الباقات</h2>
           <p className="mx-auto mt-4 max-w-xl text-balance text-[var(--color-ink-soft)]">
             اختر الخدمة، ثم التصنيف، وشاهد الباقات والأسعار مباشرة.
@@ -395,14 +394,10 @@ export default function PackagesShowcase() {
             transition={{ duration: 0.35, ease: EASE }}
             className="mt-8"
           >
-            {sub.info?.length ? <InfoPanel blocks={sub.info} /> : null}
-
             {sub.selectable ? (
-              <div className="mt-8">
-                <SelectedDesignsOrder />
-              </div>
+              <SelectedDesignsOrder />
             ) : (
-              <div className={`mt-2 grid items-stretch gap-5 ${gridCols(sub.packages.length)}`}>
+              <div className={`grid items-stretch gap-5 ${gridCols(sub.packages.length)}`}>
                 {sub.packages.map((p) => (
                   <Card
                     key={p.name}
@@ -416,6 +411,8 @@ export default function PackagesShowcase() {
                 ))}
               </div>
             )}
+
+            {sub.info?.length ? <InfoPanel blocks={sub.info} /> : null}
           </motion.div>
         </AnimatePresence>
       </div>

@@ -44,7 +44,6 @@ export default function Trust() {
           viewport={{ once: true }}
           className="relative mb-12 text-center"
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent-soft)]">الثقة بالأرقام</p>
           <h2 className="font-display text-3xl text-[var(--color-canvas)] sm:text-4xl">نتائج تتحدث عن نفسها</h2>
         </motion.div>
 

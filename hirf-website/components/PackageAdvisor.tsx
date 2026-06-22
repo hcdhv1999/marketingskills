@@ -50,7 +50,6 @@ export default function PackageAdvisor() {
           transition={{ duration: 0.8 }}
           className="mb-10 text-center"
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent)]">سؤالان فقط</p>
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">اقترح الباقة المناسبة</h2>
         </motion.div>
 

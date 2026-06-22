@@ -12,6 +12,7 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { ExperienceProvider } from "@/components/ExperienceContext";
 
 export default function Home() {
@@ -33,6 +34,7 @@ export default function Home() {
         <FinalCTA />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </ExperienceProvider>
   );
 }

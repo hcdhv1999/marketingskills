@@ -12,7 +12,6 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent)]">من نحن</p>
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">من نحن</h2>
           <p className="mx-auto mt-6 max-w-3xl text-balance text-lg leading-loose text-[var(--color-ink-soft)] sm:text-xl">
             حِرف وكالة رقمية متخصصة في بناء الحضور الرقمي للمشاريع والعلامات التجارية عبر تأسيس

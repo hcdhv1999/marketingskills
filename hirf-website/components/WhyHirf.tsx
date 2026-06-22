@@ -14,7 +14,6 @@ export default function WhyHirf() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <p className="mb-3 text-sm tracking-[0.35em] text-[var(--color-accent)]">ما يميّزنا</p>
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">لماذا حِرف؟</h2>
         </motion.div>
 
