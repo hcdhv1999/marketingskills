@@ -265,7 +265,6 @@ export default function PackagesShowcase() {
   const [highlight, setHighlight] = useState<string | null>(null);
 
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const pending = useRef<string | null>(null);
 
   const service = SERVICES.find((s) => s.id === serviceId)!;
   const sub = service.subCategories.find((c) => c.id === subId) ?? service.subCategories[0];
@@ -277,31 +276,33 @@ export default function PackagesShowcase() {
     setSubId(svc.subCategories[0].id);
   };
 
-  // Jump straight to a package requested from the advisor.
+  // Jump straight to a package requested from the advisor — switch the
+  // service/sub if needed, then scroll to the card and highlight it.
+  // Uses a retry loop so it works whether or not the tab actually changed
+  // (and waits for the new tab's cards to mount).
   useEffect(() => {
     if (!requestedPackage) return;
-    const loc = findLocation(requestedPackage.name);
+    const name = requestedPackage.name;
+    const loc = findLocation(name);
     if (!loc) return;
     setServiceId(loc.serviceId);
     setSubId(loc.subId);
-    pending.current = requestedPackage.name;
-  }, [requestedPackage]);
 
-  // After the matching tab renders, scroll to the card and highlight it.
-  useEffect(() => {
-    if (!pending.current) return;
-    const name = pending.current;
-    const t = setTimeout(() => {
+    let tries = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const tryScroll = () => {
       const el = cardRefs.current[name];
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
         setHighlight(name);
         setTimeout(() => setHighlight((h) => (h === name ? null : h)), 2600);
+        return;
       }
-      pending.current = null;
-    }, 120);
-    return () => clearTimeout(t);
-  }, [serviceId, subId]);
+      if (tries++ < 25) timer = setTimeout(tryScroll, 80);
+    };
+    timer = setTimeout(tryScroll, 80);
+    return () => clearTimeout(timer);
+  }, [requestedPackage]);
 
   return (
     <section id="packages" className="relative px-6 py-28" aria-label="الباقات">
