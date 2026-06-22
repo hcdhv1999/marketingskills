@@ -17,7 +17,7 @@ export default function Testimonials() {
           <h2 className="font-display text-4xl text-[var(--color-ink)] sm:text-5xl">آراء العملاء</h2>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 hide-scrollbar">
           {TESTIMONIALS.map((t, i) => (
             <motion.figure
               key={i}
@@ -25,7 +25,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
-              className="flex h-full flex-col rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-7 shadow-[var(--shadow-soft)]"
+              className="flex w-[300px] shrink-0 snap-start flex-col rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-7 shadow-[var(--shadow-soft)] sm:w-[360px]"
             >
               <div className="text-[var(--color-accent)]" aria-label={`${t.rating} من 5`}>
                 {"★".repeat(t.rating)}

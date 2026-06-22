@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
+import KasraGold from "@/components/KasraGold";
 
 const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
@@ -64,6 +65,7 @@ export default function RootLayout({
         >
           تخطَّ إلى المحتوى
         </a>
+        <KasraGold />
         {children}
       </body>
     </html>

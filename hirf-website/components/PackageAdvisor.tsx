@@ -36,8 +36,8 @@ export default function PackageAdvisor() {
 
   const goToPackage = () => {
     if (!recommendation) return;
+    // The packages showcase reacts to this and scrolls directly to the card.
     requestPackage(recommendation);
-    document.getElementById("packages")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (

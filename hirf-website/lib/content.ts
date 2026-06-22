@@ -861,3 +861,19 @@ export const FAQS: FAQItem[] = [
     a: "تختلف المدة حسب الباقة، وهي موضّحة داخل كل باقة في قسم الباقات.",
   },
 ];
+
+// أعمالنا — each work shows: project name + field. (Placeholders until the
+// real works are provided; replace the entries below verbatim.)
+export interface Work {
+  name: string;
+  field: string;
+}
+
+export const WORKS: Work[] = [
+  { name: "مجوهرات الريم", field: "متجر إلكتروني" },
+  { name: "كرومش", field: "هوية بصرية" },
+  { name: "منارة الحلا", field: "متجر إلكتروني" },
+  { name: "بلانتي", field: "متجر إلكتروني" },
+  { name: "خضار الوسطى", field: "إدارة حسابات" },
+  { name: "Code966", field: "موقع إلكتروني" },
+];

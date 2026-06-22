@@ -151,3 +151,8 @@ body {
   border: 1px solid #b8e0c4;
   color: #1f7a46;
 }
+
+/* Brand accent on the kasra of حِرف / حِرفة */
+.kasra-gold {
+  color: var(--color-accent);
+}

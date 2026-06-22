@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { VAULT_PROJECTS } from "@/lib/content";
+import { WORKS } from "@/lib/content";
 
 export default function Work() {
   return (
@@ -18,36 +18,17 @@ export default function Work() {
         </motion.div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {VAULT_PROJECTS.map((p, i) => (
+          {WORKS.map((w, i) => (
             <motion.article
-              key={p.id}
+              key={w.name + i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
-              className="flex h-full flex-col rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-6 shadow-[var(--shadow-soft)]"
+              className="flex h-full flex-col justify-center rounded-3xl border border-[var(--color-ink)]/10 bg-[var(--color-canvas)] p-8 text-center shadow-[var(--shadow-soft)]"
             >
-              <div className="flex items-center justify-between">
-                <h3 className="font-display text-xl text-[var(--color-ink)]">{p.name}</h3>
-                <span className="rounded-full bg-[var(--color-accent)] px-3 py-1 text-xs font-medium text-[var(--color-canvas)]">
-                  {p.metric}
-                </span>
-              </div>
-              <p className="mt-1 text-sm text-[var(--color-accent)]">{p.field}</p>
-              <dl className="mt-4 space-y-3 text-sm">
-                <div>
-                  <dt className="font-medium text-[var(--color-ink)]">التحدي</dt>
-                  <dd className="text-[var(--color-ink-soft)]">{p.challenge}</dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-[var(--color-ink)]">الحل</dt>
-                  <dd className="text-[var(--color-ink-soft)]">{p.solution}</dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-[var(--color-ink)]">النتيجة</dt>
-                  <dd className="text-[var(--color-ink-soft)]">{p.result}</dd>
-                </div>
-              </dl>
+              <h3 className="font-display text-2xl text-[var(--color-ink)]">{w.name}</h3>
+              <p className="mt-2 text-[var(--color-accent)]">{w.field}</p>
             </motion.article>
           ))}
         </div>
