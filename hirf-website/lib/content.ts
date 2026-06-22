@@ -870,10 +870,5 @@ export interface Work {
 }
 
 export const WORKS: Work[] = [
-  { name: "مجوهرات الريم", field: "متجر إلكتروني" },
-  { name: "كرومش", field: "هوية بصرية" },
-  { name: "منارة الحلا", field: "متجر إلكتروني" },
-  { name: "بلانتي", field: "متجر إلكتروني" },
-  { name: "خضار الوسطى", field: "إدارة حسابات" },
-  { name: "Code966", field: "موقع إلكتروني" },
+  { name: "زود", field: "متجر إلكتروني" },
 ];
