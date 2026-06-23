@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const LINKS = [
@@ -14,7 +13,6 @@ const LINKS = [
 export default function Nav() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
-  const [logoOk, setLogoOk] = useState(true);
 
   return (
     <>
@@ -25,19 +23,12 @@ export default function Nav() {
       <header className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
         <nav className="glass flex w-full max-w-5xl items-center justify-between rounded-full px-5 py-2.5 shadow-[var(--shadow-soft)]">
           <a href="#main" className="flex shrink-0 items-center gap-2" aria-label="حِرف — الصفحة الرئيسية">
-            {logoOk ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src="/hirf-logo.png"
-                alt="حِرف"
-                onError={() => setLogoOk(false)}
-                className="block h-8 w-auto max-w-none shrink-0 object-contain sm:h-10"
-              />
-            ) : (
-              <span className="font-display text-3xl leading-none text-[var(--color-ink)]">
-                ح<span style={{ color: "#d88935" }}>ِ</span>رف
-              </span>
-            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hirf-logo.png?v=2"
+              alt="حِرف"
+              className="block h-8 w-auto max-w-none shrink-0 object-contain sm:h-10"
+            />
           </a>
           <ul className="hidden items-center gap-1 md:flex">
             {LINKS.map((l) => (
