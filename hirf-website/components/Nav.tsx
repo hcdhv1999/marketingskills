@@ -27,7 +27,9 @@ export default function Nav() {
             <img
               src="/hirf-logo.png?v=2"
               alt="حِرف"
-              className="block h-8 w-auto max-w-none shrink-0 object-contain sm:h-10"
+              width={164}
+              height={176}
+              className="block h-8 w-8 shrink-0 object-contain sm:h-10 sm:w-10"
             />
           </a>
           <ul className="hidden items-center gap-1 md:flex">
