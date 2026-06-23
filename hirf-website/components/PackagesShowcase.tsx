@@ -384,7 +384,7 @@ export default function PackagesShowcase() {
               <span className="text-2xl text-[var(--color-accent)]" aria-hidden>✦</span>
               <h3 className="font-display text-xl text-[var(--color-ink)] sm:text-2xl">{gk("ضمان حِرف")}</h3>
             </div>
-            <p className="mt-4 text-base leading-loose text-[var(--color-ink-soft)]">{gk(service.guarantee)}</p>
+            <p className="mt-4 text-base leading-relaxed text-[var(--color-ink-soft)]">{gk(service.guarantee)}</p>
           </div>
         )}
 
