@@ -379,12 +379,9 @@ export default function PackagesShowcase() {
 
         {/* ضمان حِرف — premium card, mobile-first */}
         {service.guarantee && (
-          <div className="mx-auto mt-6 max-w-3xl rounded-3xl border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/8 p-6 text-right sm:p-8">
-            <div className="flex items-center gap-2.5">
-              <span className="text-2xl text-[var(--color-accent)]" aria-hidden>✦</span>
-              <h3 className="font-display text-xl text-[var(--color-ink)] sm:text-2xl">{gk("ضمان حِرف")}</h3>
-            </div>
-            <p className="mt-4 text-base leading-relaxed text-[var(--color-ink-soft)]">{gk(service.guarantee)}</p>
+          <div className="mx-auto mt-6 max-w-5xl rounded-3xl border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/8 px-6 py-5 text-center sm:px-8">
+            <h3 className="font-display text-base text-[var(--color-ink)]">{gk("ضمان حِرف")}</h3>
+            <p className="mt-2 text-base leading-relaxed text-[var(--color-ink-soft)]">{gk(service.guarantee)}</p>
           </div>
         )}
 
