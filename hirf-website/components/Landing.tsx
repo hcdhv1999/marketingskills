@@ -13,9 +13,12 @@ export default function Landing() {
         initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="font-display text-7xl leading-none text-[var(--color-ink)] sm:text-8xl md:text-9xl"
+        className="m-0"
+        aria-label="حِرف"
       >
-        {gk("حِرف")}
+        {/* Logo (gold kasra baked in) — reliable across browsers */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/hirf-logo.png" alt="حِرف" className="mx-auto h-40 w-auto sm:h-48 md:h-56" />
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
