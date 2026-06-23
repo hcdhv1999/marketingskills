@@ -22,9 +22,9 @@ export default function Nav() {
       />
       <header className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
         <nav className="glass flex w-full max-w-5xl items-center justify-between rounded-full px-5 py-2.5 shadow-[var(--shadow-soft)]">
-          <a href="#main" className="flex items-center" aria-label="حِرف — الصفحة الرئيسية">
+          <a href="#main" className="flex shrink-0 items-center" aria-label="حِرف — الصفحة الرئيسية">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/hirf-logo.png" alt="حِرف" className="h-10 w-auto object-contain" />
+            <img src="/hirf-logo.png" alt="حِرف" className="block h-8 w-auto max-w-none shrink-0 object-contain sm:h-10" />
           </a>
           <ul className="hidden items-center gap-1 md:flex">
             {LINKS.map((l) => (
