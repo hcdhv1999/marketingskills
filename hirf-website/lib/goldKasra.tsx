@@ -10,7 +10,7 @@ export function gk(text: string): React.ReactNode {
     if (text[i] === "ح" && text[i + 1] === "ِ") {
       parts.push(text.slice(last, i + 1)); // up to and including ح
       parts.push(
-        <span key={i} className="kasra-gold" style={{ color: "var(--color-accent)" }}>
+        <span key={i} className="kasra-gold" style={{ color: "#d88935" }}>
           {"ِ"}
         </span>
       );
