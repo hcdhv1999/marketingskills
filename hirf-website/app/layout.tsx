@@ -12,6 +12,9 @@ const ibmPlexArabic = IBM_Plex_Sans_Arabic({
 const SITE_URL = "https://hirf.example";
 
 export const metadata: Metadata = {
+  verification: {
+  google: "-xV_oVAuNF5ubKiapZ6HaChbJ3IyC54GySflRwUTOp0",
+},
   metadataBase: new URL(SITE_URL),
   title: {
     default: "حِرف — حيث تُبنى المشاريع العظيمة",
