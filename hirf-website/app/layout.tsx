@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
-
+import Script from "next/script";
 const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
@@ -58,7 +58,20 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={ibmPlexArabic.variable}>
       <body>
-        <a
+       <Script
+  src="https://www.googletagmanager.com/gtag/js?id=G-D245ZGL9X1"
+  strategy="afterInteractive"
+/>
+
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D245ZGL9X1');
+  `}
+</Script>
+      <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[100] focus:rounded-full focus:bg-[var(--color-ink)] focus:px-5 focus:py-2 focus:text-[var(--color-canvas)]"
         >
