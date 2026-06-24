@@ -60,6 +60,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ar" dir="rtl" className={ibmPlexArabic.variable}>
+
       <body>
        <Script
   src="https://www.googletagmanager.com/gtag/js?id=G-D245ZGL9X1"
