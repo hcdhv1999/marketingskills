@@ -4,13 +4,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useExperience } from "./ExperienceContext";
 
-type Need = "store" | "design" | "social" | "ads";
+type Need = "store" | "design" | "ads";
 type Stage = "start" | "grow";
 
 const NEEDS: { id: Need; label: string }[] = [
   { id: "store", label: "متجر إلكتروني" },
   { id: "design", label: "هوية وتصاميم" },
-  { id: "social", label: "إدارة حسابات" },
   { id: "ads", label: "إعلانات ممولة" },
 ];
 
@@ -22,7 +21,6 @@ const STAGES: { id: Stage; label: string }[] = [
 const RESULT: Record<Need, Record<Stage, string>> = {
   store: { start: "باقة نواة", grow: "باقة نمو" },
   design: { start: "هوية بيسك", grow: "هوية أساسية" },
-  social: { start: "باقة الكلاسيك", grow: "باقة النمو والتفاعل" },
   ads: { start: "منصة واحدة", grow: "منصتان" },
 };
 
