@@ -322,7 +322,7 @@ export default function PackagesShowcase() {
         </motion.div>
 
         {/* Level 1 — service cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {SERVICES.map((s) => {
             const active = s.id === serviceId;
             return (
@@ -367,13 +367,6 @@ export default function PackagesShowcase() {
                 {c.label}
               </button>
             ))}
-          </div>
-        )}
-
-        {/* Service-level note (green alert) */}
-        {service.note && (
-          <div className="mx-auto mt-6 max-w-3xl">
-            <NoteBox>{service.note}</NoteBox>
           </div>
         )}
 
