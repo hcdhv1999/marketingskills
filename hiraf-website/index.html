@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>حِرف | استوديو رقمي يصنع لك مبيعات</title>
+<meta name="description" content="حِرف — استوديو رقمي متكامل. متاجر إلكترونية، هوية بصرية، إعلانات مبيعات، وإدارة حسابات. اختر احتياجك وابدأ مشروعك الآن." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --green-950:#031c14;
+  --green-900:#062a20;
+  --green-800:#0a3d2e;
+  --green-700:#0e5440;
+  --green-600:#117a5b;
+  --emerald:#2fd99a;
+  --emerald-soft:#5ce6b6;
+  --gold:#e6c067;
+  --gold-soft:#f4dca0;
+  --ink:#eafff6;
+  --muted:#9fc3b4;
+  --glass:rgba(255,255,255,.06);
+  --glass-brd:rgba(255,255,255,.12);
+  --shadow:0 30px 80px rgba(0,0,0,.45);
+  --r-lg:28px;
+  --r-md:20px;
+  --r-sm:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',system-ui,sans-serif;
+  background:var(--green-950);
+  color:var(--ink);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+section{position:relative}
+.wrap{width:min(1180px,92vw);margin-inline:auto}
+.eyebrow{color:var(--emerald);font-weight:700;letter-spacing:.5px;font-size:.95rem;margin-bottom:14px}
+.sec-title{font-size:clamp(1.9rem,4.4vw,3rem);font-weight:900;line-height:1.25}
+.sec-sub{color:var(--muted);font-size:1.1rem;margin-top:14px;max-width:640px}
+.center{text-align:center;margin-inline:auto}
+
+/* ===== NAV ===== */
+.nav{position:fixed;inset-inline:0;top:0;z-index:60;transition:.35s}
+.nav.scrolled{background:rgba(6,42,32,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-brd)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.5rem}
+.brand .mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--emerald),var(--green-600));color:#04241a;font-weight:900;
+  box-shadow:0 8px 24px rgba(47,217,154,.35)}
+.nav-links{display:flex;gap:30px;font-weight:500}
+.nav-links a{color:var(--muted);transition:.25s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--emerald);color:#04241a;
+  font-weight:800;padding:11px 22px;border-radius:999px;transition:.25s;box-shadow:0 10px 30px rgba(47,217,154,.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(47,217,154,.45)}
+@media(max-width:880px){.nav-links{display:none}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;
+  background:
+   radial-gradient(1200px 600px at 80% -10%,rgba(47,217,154,.18),transparent 60%),
+   radial-gradient(900px 500px at 0% 100%,rgba(230,192,103,.12),transparent 55%),
+   linear-gradient(180deg,var(--green-900),var(--green-950));
+  overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}}
+.hero h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;line-height:1.15;letter-spacing:-1px}
+.hero h1 .hl{background:linear-gradient(120deg,var(--emerald),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--muted);font-size:1.3rem;margin-top:22px;max-width:540px}
+@media(max-width:980px){.hero p.lead{margin-inline:auto}}
+.hero-badges{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+@media(max-width:980px){.hero-badges{justify-content:center}}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-brd);
+  padding:9px 16px;border-radius:999px;font-weight:600;font-size:.92rem;backdrop-filter:blur(10px)}
+.hbadge b{color:var(--emerald)}
+.scroll-hint{margin-top:38px;display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-weight:600}
+.scroll-hint .dot{width:26px;height:42px;border:2px solid var(--glass-brd);border-radius:14px;position:relative}
+.scroll-hint .dot::after{content:"";position:absolute;inset-inline-start:50%;top:8px;transform:translateX(50%);
+  width:5px;height:5px;border-radius:50%;background:var(--emerald);animation:scrolly 1.6s infinite}
+@keyframes scrolly{0%{opacity:0;top:8px}40%{opacity:1}100%{opacity:0;top:24px}}
+
+/* floating ecosystem */
+.eco{position:relative;height:520px}
+@media(max-width:980px){.eco{height:440px}}
+.float{position:absolute;background:var(--glass);border:1px solid var(--glass-brd);border-radius:var(--r-md);
+  padding:16px;backdrop-filter:blur(16px);box-shadow:var(--shadow);animation:floaty 6s ease-in-out infinite}
+.float h5{font-size:.85rem;color:var(--muted);font-weight:600;margin-bottom:8px}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.f-store{inset-block-start:0;inset-inline-start:0;width:230px;animation-delay:.2s}
+.f-store .row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.f-store .thumb{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--emerald),var(--green-600))}
+.f-store .bar{height:8px;border-radius:6px;background:rgba(255,255,255,.14);flex:1}
+.f-store .bar.s{width:60%}
+.f-chart{inset-block-start:120px;inset-inline-end:0;width:215px;animation-delay:1.4s}
+.spark{display:flex;align-items:flex-end;gap:7px;height:70px;margin-top:6px}
+.spark span{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--emerald),rgba(47,217,154,.2))}
+.f-sale{inset-block-end:60px;inset-inline-start:18px;width:250px;animation-delay:2.4s;display:flex;align-items:center;gap:12px}
+.f-sale .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;
+  background:rgba(47,217,154,.18);border:1px solid rgba(47,217,154,.4)}
+.f-sale b{display:block;color:var(--emerald)}
+.f-brand{inset-block-end:0;inset-inline-end:30px;width:180px;animation-delay:3.2s;text-align:center}
+.f-brand .logo{height:70px;border-radius:14px;display:grid;place-items:center;font-size:1.7rem;font-weight:900;color:#04241a;
+  background:linear-gradient(135deg,var(--gold),var(--gold-soft))}
+.f-ad{inset-block-start:0;inset-inline-end:60px;width:170px;animation-delay:.8s}
+.f-ad .big{font-size:1.7rem;font-weight:900;color:var(--gold)}
+
+/* ===== CHOICE CARDS ===== */
+.choices{padding:90px 0 30px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px}
+@media(max-width:980px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.choice{position:relative;cursor:pointer;border-radius:var(--r-lg);padding:34px 26px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  border:1px solid var(--glass-brd);transition:.4s cubic-bezier(.2,.8,.2,1);text-align:center}
+.choice::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
+  background:radial-gradient(400px 200px at 50% 0%,rgba(47,217,154,.25),transparent 70%)}
+.choice:hover{transform:translateY(-10px);border-color:rgba(47,217,154,.55);
+  box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(47,217,154,.25)}
+.choice:hover::before{opacity:1}
+.choice.active{border-color:var(--emerald);box-shadow:0 0 0 2px var(--emerald),0 30px 70px rgba(0,0,0,.5)}
+.choice .emoji{font-size:2.8rem;margin-bottom:18px;display:inline-block;transition:.4s;filter:drop-shadow(0 8px 16px rgba(0,0,0,.4))}
+.choice:hover .emoji{transform:scale(1.15) rotate(-4deg)}
+.choice h3{font-size:1.35rem;font-weight:800;position:relative;z-index:2}
+.choice .hintline{margin-top:12px;color:var(--muted);font-size:.92rem;position:relative;z-index:2}
+.choice .pick{margin-top:18px;display:inline-flex;align-items:center;gap:8px;color:var(--emerald);font-weight:800;
+  position:relative;z-index:2;transition:.3s}
+.choice:hover .pick{gap:14px}
+
+/* ===== EXPANDED PACKAGES ===== */
+.panel{display:none;animation:fadeUp .5s ease}
+.panel.open{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.packages{padding:60px 0 30px}
+.panel-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.panel-head .pe{font-size:2rem}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:38px}
+.pkg{position:relative;display:flex;flex-direction:column;border-radius:var(--r-lg);padding:34px 28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  border:1px solid var(--glass-brd);transition:.35s}
+.pkg:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.25);box-shadow:var(--shadow)}
+.pkg.featured{border-color:var(--gold);
+  background:linear-gradient(180deg,rgba(230,192,103,.14),rgba(255,255,255,.03));
+  box-shadow:0 0 0 1px var(--gold),0 30px 70px rgba(0,0,0,.5)}
+.pkg .tag{position:absolute;top:-14px;inset-inline-start:50%;transform:translateX(50%);
+  background:linear-gradient(120deg,var(--gold),var(--gold-soft));color:#3a2c06;font-weight:900;
+  padding:7px 18px;border-radius:999px;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 22px rgba(230,192,103,.45)}
+.pkg .pname{font-size:1.5rem;font-weight:900}
+.pkg .pdesc{color:var(--muted);margin-top:6px;font-size:.95rem;min-height:44px}
+.pkg .price{margin-top:18px;display:flex;align-items:baseline;gap:8px}
+.pkg .price .num{font-size:2.6rem;font-weight:900;color:var(--emerald)}
+.pkg.featured .price .num{color:var(--gold)}
+.pkg .price .cur{font-weight:700;color:var(--muted)}
+.pkg .dur{margin-top:6px;display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:.9rem;font-weight:600}
+.pkg ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:13px;flex:1}
+.pkg li{display:flex;gap:11px;align-items:flex-start;font-size:.97rem}
+.pkg li .ck{flex-shrink:0;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;margin-top:2px;
+  background:rgba(47,217,154,.16);color:var(--emerald);font-weight:900;font-size:.8rem}
+.pkg.featured li .ck{background:rgba(230,192,103,.2);color:var(--gold)}
+.pkg .req{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:800;padding:15px;border-radius:14px;transition:.3s;
+  background:var(--glass);border:1px solid var(--glass-brd)}
+.pkg .req:hover{background:var(--emerald);color:#04241a;transform:translateY(-2px)}
+.pkg.featured .req{background:linear-gradient(120deg,var(--gold),var(--gold-soft));color:#3a2c06;border:none}
+.pkg.featured .req:hover{filter:brightness(1.08);box-shadow:0 14px 34px rgba(230,192,103,.45)}
+
+/* ===== TRUST / STATS ===== */
+.stats{padding:90px 0;background:
+  radial-gradient(900px 400px at 50% 0%,rgba(47,217,154,.1),transparent 60%)}
+.stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:50px}
+@media(max-width:980px){.stat-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat{text-align:center;padding:30px 14px;border-radius:var(--r-md);
+  background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(10px)}
+.stat .n{font-size:2.6rem;font-weight:900;color:var(--emerald);line-height:1}
+.stat .l{color:var(--muted);margin-top:10px;font-weight:600;font-size:.95rem}
+
+/* ===== PORTFOLIO ===== */
+.portfolio{padding:90px 0}
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+@media(max-width:880px){.pf-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pf-grid{grid-template-columns:1fr}}
+.pf{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:4/3;cursor:pointer;
+  border:1px solid var(--glass-brd);transition:.4s}
+.pf:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.pf .art{position:absolute;inset:0;display:grid;place-items:center;font-size:3rem;transition:.5s}
+.pf:hover .art{transform:scale(1.08)}
+.pf .meta{position:absolute;inset-inline:0;bottom:0;padding:20px;
+  background:linear-gradient(0deg,rgba(3,28,20,.92),transparent);z-index:2}
+.pf .meta .cat{color:var(--emerald);font-size:.82rem;font-weight:800}
+.pf .meta h4{font-weight:800;font-size:1.15rem;margin-top:4px}
+.pf.big{grid-column:span 2}
+@media(max-width:560px){.pf.big{grid-column:span 1}}
+.g1{background:linear-gradient(135deg,#0e5440,#031c14)}
+.g2{background:linear-gradient(135deg,#117a5b,#062a20)}
+.g3{background:linear-gradient(135deg,#1d6f57,#0a3d2e)}
+.g4{background:linear-gradient(135deg,#8a6d1e,#0a3d2e)}
+.g5{background:linear-gradient(135deg,#0a3d2e,#2fd99a33)}
+.g6{background:linear-gradient(135deg,#0e5440,#e6c06733)}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:90px 0;overflow:hidden}
+.rev-track{display:flex;gap:24px;margin-top:50px;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.rev{flex:0 0 calc(33.333% - 16px);min-width:300px;border-radius:var(--r-lg);padding:32px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  border:1px solid var(--glass-brd);backdrop-filter:blur(18px)}
+@media(max-width:880px){.rev{flex:0 0 calc(100% - 0px)}}
+.rev .stars{color:var(--gold);font-size:1.1rem;letter-spacing:3px}
+.rev p{margin-top:16px;font-size:1.05rem;line-height:1.9}
+.rev .who{display:flex;align-items:center;gap:13px;margin-top:22px}
+.rev .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#04241a;
+  background:linear-gradient(135deg,var(--emerald),var(--gold))}
+.rev .who b{display:block}
+.rev .who span{color:var(--muted);font-size:.88rem}
+.rev-dots{display:flex;gap:10px;justify-content:center;margin-top:34px}
+.rev-dots i{width:10px;height:10px;border-radius:50%;background:var(--glass-brd);cursor:pointer;transition:.3s}
+.rev-dots i.on{background:var(--emerald);width:30px;border-radius:6px}
+
+/* ===== CONVERSION ===== */
+.convert{padding:30px 0 100px}
+.convert-box{position:relative;overflow:hidden;border-radius:36px;padding:70px 40px;text-align:center;
+  background:
+   radial-gradient(700px 400px at 20% 0%,rgba(47,217,154,.28),transparent 60%),
+   radial-gradient(700px 400px at 100% 100%,rgba(230,192,103,.22),transparent 60%),
+   linear-gradient(160deg,var(--green-800),var(--green-950));
+  border:1px solid rgba(47,217,154,.3)}
+.convert-box h2{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:900}
+.convert-box p{color:var(--ink);opacity:.85;font-size:1.25rem;margin:20px auto 0;max-width:680px}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.btn{display:inline-flex;align-items:center;gap:11px;font-weight:800;font-size:1.1rem;padding:18px 38px;border-radius:999px;transition:.3s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(120deg,var(--emerald),var(--emerald-soft));color:#04241a;
+  box-shadow:0 16px 44px rgba(47,217,154,.45)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 60px rgba(47,217,154,.6)}
+.btn-ghost{background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--glass-brd)}
+.btn-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-3px)}
+
+/* ===== FOOTER ===== */
+footer{padding:60px 0 40px;border-top:1px solid var(--glass-brd);background:var(--green-950)}
+.foot{display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;align-items:flex-start}
+.foot .brand{margin-bottom:8px}
+.foot-links{display:flex;flex-wrap:wrap;gap:14px 28px;font-weight:600}
+.foot-links a{color:var(--muted);transition:.25s}
+.foot-links a:hover{color:var(--emerald)}
+.foot-contact{color:var(--muted);font-weight:600;line-height:2}
+.foot-contact a:hover{color:var(--emerald)}
+.foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--glass-brd);
+  color:var(--muted);font-size:.9rem;text-align:center}
+
+/* ===== WHATSAPP FLOAT ===== */
+.wa{position:fixed;inset-block-end:26px;inset-inline-start:26px;z-index:80;
+  width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+  background:#25D366;box-shadow:0 12px 34px rgba(37,211,102,.5);animation:wapulse 2.4s infinite}
+.wa svg{width:34px;height:34px;fill:#fff}
+.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:waring 2.4s infinite}
+@keyframes wapulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes waring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+.wa .tip{position:absolute;inset-inline-start:78px;white-space:nowrap;background:#fff;color:#04241a;
+  font-weight:800;font-size:.9rem;padding:8px 14px;border-radius:10px;opacity:0;pointer-events:none;transition:.3s;
+  box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.wa:hover .tip{opacity:1;transform:translateX(-6px)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:.8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand"><span class="mark">حِ</span> حِرف</a>
+    <div class="nav-links">
+      <a href="#top">الرئيسية</a>
+      <a href="#choices">الخدمات</a>
+      <a href="#choices">الباقات</a>
+      <a href="#portfolio">أعمالنا</a>
+      <a href="#reviews">آراء العملاء</a>
+    </div>
+    <a class="nav-cta" href="https://wa.me/966506039366" target="_blank" rel="noopener">ابدأ مشروعك</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hbadge" style="margin-bottom:22px">استوديو رقمي متكامل · صُنع في السعودية 🇸🇦</div>
+      <h1>أين تريد أن <span class="hl">يبدأ مشروعك؟</span></h1>
+      <p class="lead">اختر احتياجك الحالي وسنقودك إلى الخطوة التالية — بدون لف ودوران.</p>
+      <div class="hero-badges">
+        <span class="hbadge"><b>+30</b> عميل</span>
+        <span class="hbadge"><b>98%</b> رضا</span>
+        <span class="hbadge"><b>+5</b> متاجر</span>
+      </div>
+      <a href="#choices" class="scroll-hint">
+        <span class="dot"></span> اختر احتياجك بالأسفل
+      </a>
+    </div>
+
+    <div class="eco" aria-hidden="true">
+      <div class="float f-store">
+        <h5>متجر إلكتروني</h5>
+        <div class="row"><div class="thumb"></div><div class="bar"></div></div>
+        <div class="row"><div class="thumb"></div><div class="bar s"></div></div>
+        <div class="row"><div class="thumb"></div><div class="bar"></div></div>
+      </div>
+      <div class="float f-chart">
+        <h5>لوحة التحليلات</h5>
+        <div class="spark">
+          <span style="height:40%"></span><span style="height:65%"></span><span style="height:50%"></span>
+          <span style="height:80%"></span><span style="height:70%"></span><span style="height:100%"></span>
+        </div>
+      </div>
+      <div class="float f-ad">
+        <h5>أداء الإعلانات</h5>
+        <div class="big">×4.2</div>
+        <div style="color:var(--muted);font-size:.82rem">عائد على الإنفاق</div>
+      </div>
+      <div class="float f-sale">
+        <div class="ic">🔔</div>
+        <div><b>طلب جديد!</b><span style="color:var(--muted);font-size:.85rem">+ 349 ر.س الآن</span></div>
+      </div>
+      <div class="float f-brand">
+        <div class="logo">حِرف</div>
+        <div style="color:var(--muted);font-size:.82rem;margin-top:8px">هوية بصرية</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CHOICES -->
+<section class="choices" id="choices">
+  <div class="wrap">
+    <div class="center" style="max-width:680px">
+      <div class="eyebrow">الخطوة الأولى</div>
+      <h2 class="sec-title">اختر احتياجك الحالي</h2>
+      <p class="sec-sub center">اضغط على الخيار الأقرب لمشروعك، وستظهر لك الباقات المناسبة مباشرة بالأسفل.</p>
+    </div>
+
+    <div class="cards">
+      <div class="choice" data-target="store">
+        <span class="emoji">🛒</span>
+        <h3>أريد متجرًا إلكترونيًا</h3>
+        <p class="hintline">متجر احترافي جاهز للبيع</p>
+        <span class="pick">شاهد الباقات ←</span>
+      </div>
+      <div class="choice" data-target="brand">
+        <span class="emoji">🎨</span>
+        <h3>أريد هوية بصرية</h3>
+        <p class="hintline">شعار وهوية تميّزك عن المنافسين</p>
+        <span class="pick">شاهد الباقات ←</span>
+      </div>
+      <div class="choice" data-target="sales">
+        <span class="emoji">📢</span>
+        <h3>أريد مبيعات أكثر</h3>
+        <p class="hintline">حملات إعلانية تجلب عملاء فعليين</p>
+        <span class="pick">شاهد الباقات ←</span>
+      </div>
+      <div class="choice" data-target="manage">
+        <span class="emoji">📱</span>
+        <h3>أريد إدارة حساباتي</h3>
+        <p class="hintline">محتوى وإدارة احترافية لحساباتك</p>
+        <span class="pick">شاهد الباقات ←</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES PANELS -->
+<section class="packages">
+  <div class="wrap">
+
+    <!-- STORE -->
+    <div class="panel" id="panel-store">
+      <div class="panel-head"><span class="pe">🛒</span><h2 class="sec-title">باقات المتاجر الإلكترونية</h2></div>
+      <p class="sec-sub">من أول فكرة إلى متجر يبيع — اختر الباقة التي تناسب مرحلتك.</p>
+      <div class="pkg-grid">
+
+        <div class="pkg">
+          <div class="pname">باقة رقمية</div>
+          <div class="pdesc">انطلاقة سريعة لمن يريد التواجد الرقمي بأقل تكلفة.</div>
+          <div class="price"><span class="num">990</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 5 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> إنشاء متجر على سلة / زد</li>
+            <li><span class="ck">✓</span> إعداد الصفحة الرئيسية</li>
+            <li><span class="ck">✓</span> رفع حتى 10 منتجات</li>
+            <li><span class="ck">✓</span> ربط وسائل الدفع</li>
+            <li><span class="ck">✓</span> إعداد الشحن الأساسي</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20رقمية%20للمتجر%20الإلكتروني" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">باقة نواة</div>
+          <div class="pdesc">أساس متين لمتجر منظم وجاهز للنمو.</div>
+          <div class="price"><span class="num">1,890</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 7 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في الباقة الرقمية</li>
+            <li><span class="ck">✓</span> رفع حتى 30 منتجًا منظمًا</li>
+            <li><span class="ck">✓</span> تصميم بانرات الواجهة</li>
+            <li><span class="ck">✓</span> تصنيفات وتنظيم احترافي</li>
+            <li><span class="ck">✓</span> إعداد كوبونات وعروض</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20نواة%20للمتجر%20الإلكتروني" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg featured">
+          <span class="tag">⭐ الأكثر طلباً</span>
+          <div class="pname">باقة نمو</div>
+          <div class="pdesc">الخيار المثالي للمتاجر الجادة في زيادة المبيعات.</div>
+          <div class="price"><span class="num">3,490</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 10 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في باقة نواة</li>
+            <li><span class="ck">✓</span> رفع حتى 70 منتجًا</li>
+            <li><span class="ck">✓</span> تصميم هوية مصغّرة للمتجر</li>
+            <li><span class="ck">✓</span> صفحات هبوط للعروض</li>
+            <li><span class="ck">✓</span> ربط التحليلات وبكسل الإعلانات</li>
+            <li><span class="ck">✓</span> تحسين تجربة الشراء (CRO)</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20نمو%20للمتجر%20الإلكتروني" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">باقة ازدهار</div>
+          <div class="pdesc">متجر متكامل بهوية وإدارة لانطلاقة قوية.</div>
+          <div class="price"><span class="num">6,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 14 يومًا</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في باقة نمو</li>
+            <li><span class="ck">✓</span> منتجات غير محدودة</li>
+            <li><span class="ck">✓</span> هوية بصرية كاملة</li>
+            <li><span class="ck">✓</span> تصوير/تجهيز محتوى المنتجات</li>
+            <li><span class="ck">✓</span> إدارة المتجر لمدة شهر</li>
+            <li><span class="ck">✓</span> حملة إطلاق إعلانية</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20ازدهار%20للمتجر%20الإلكتروني" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">تصميم متجر فعّال</div>
+          <div class="pdesc">إعادة تصميم متجرك القائم ليبيع أكثر.</div>
+          <div class="price"><span class="num">2,490</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 6 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> إعادة تصميم الواجهة بالكامل</li>
+            <li><span class="ck">✓</span> تحسين رحلة المستخدم</li>
+            <li><span class="ck">✓</span> تصميم بانرات وأقسام احترافية</li>
+            <li><span class="ck">✓</span> تحسين سرعة وتجربة الجوال</li>
+            <li><span class="ck">✓</span> رفع معدل التحويل</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20خدمة%20تصميم%20متجر%20فعّال" target="_blank" rel="noopener">اطلب الخدمة 💬</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BRAND -->
+    <div class="panel" id="panel-brand">
+      <div class="panel-head"><span class="pe">🎨</span><h2 class="sec-title">باقات الهوية البصرية</h2></div>
+      <p class="sec-sub">هوية تجعل علامتك تُذكر وتُميّزك عن كل المنافسين.</p>
+      <div class="pkg-grid">
+
+        <div class="pkg">
+          <div class="pname">باقة شعار</div>
+          <div class="pdesc">شعار احترافي يعبّر عن مشروعك.</div>
+          <div class="price"><span class="num">790</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 4 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> 3 مفاهيم للشعار</li>
+            <li><span class="ck">✓</span> تعديلات حتى الرضا</li>
+            <li><span class="ck">✓</span> ملفات بصيغ متعددة</li>
+            <li><span class="ck">✓</span> نسخ ملونة وأحادية</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20شعار" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg featured">
+          <span class="tag">⭐ الأكثر طلباً</span>
+          <div class="pname">باقة هوية متكاملة</div>
+          <div class="pdesc">هوية بصرية شاملة جاهزة للاستخدام الفوري.</div>
+          <div class="price"><span class="num">2,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 8 أيام</div>
+          <ul>
+            <li><span class="ck">✓</span> شعار احترافي + متغيراته</li>
+            <li><span class="ck">✓</span> نظام ألوان وخطوط</li>
+            <li><span class="ck">✓</span> بطاقة أعمال وأوراق رسمية</li>
+            <li><span class="ck">✓</span> قوالب سوشيال ميديا</li>
+            <li><span class="ck">✓</span> دليل استخدام الهوية</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20هوية%20متكاملة" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">باقة هوية متقدمة</div>
+          <div class="pdesc">هوية ثرية بتطبيقات وعناصر إضافية.</div>
+          <div class="price"><span class="num">4,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ التسليم خلال 12 يومًا</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في الهوية المتكاملة</li>
+            <li><span class="ck">✓</span> تصميم تغليف ومطبوعات</li>
+            <li><span class="ck">✓</span> ميزانات وموكب ميديا</li>
+            <li><span class="ck">✓</span> قوالب عروض تقديمية</li>
+            <li><span class="ck">✓</span> أيقونات وعناصر مخصصة</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20هوية%20متقدمة" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SALES -->
+    <div class="panel" id="panel-sales">
+      <div class="panel-head"><span class="pe">📢</span><h2 class="sec-title">باقات زيادة المبيعات</h2></div>
+      <p class="sec-sub">حملات إعلانية مدروسة تجلب عملاء حقيقيين — لا مجرد إعجابات.</p>
+      <div class="pkg-grid">
+
+        <div class="pkg">
+          <div class="pname">باقة انطلاق</div>
+          <div class="pdesc">أول حملة احترافية لمشروعك.</div>
+          <div class="price"><span class="num">1,200</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ إدارة لمدة أسبوعين</div>
+          <ul>
+            <li><span class="ck">✓</span> إعداد حملة على منصة واحدة</li>
+            <li><span class="ck">✓</span> تصميم 3 إعلانات</li>
+            <li><span class="ck">✓</span> استهداف دقيق للجمهور</li>
+            <li><span class="ck">✓</span> تقرير أداء أسبوعي</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20انطلاق%20الإعلانية" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg featured">
+          <span class="tag">⭐ الأكثر طلباً</span>
+          <div class="pname">باقة تحويل</div>
+          <div class="pdesc">حملات متعددة المنصات تركّز على المبيعات.</div>
+          <div class="price"><span class="num">2,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ إدارة لمدة شهر</div>
+          <ul>
+            <li><span class="ck">✓</span> حملات على سناب + ميتا</li>
+            <li><span class="ck">✓</span> تصميم حتى 8 إعلانات</li>
+            <li><span class="ck">✓</span> إعداد البكسل والتتبّع</li>
+            <li><span class="ck">✓</span> تحسين مستمر للحملات</li>
+            <li><span class="ck">✓</span> تقارير وتوصيات أسبوعية</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20تحويل%20الإعلانية" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">باقة هيمنة</div>
+          <div class="pdesc">إدارة إعلانية كاملة للنمو المتسارع.</div>
+          <div class="price"><span class="num">5,500</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ إدارة لمدة شهر</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في باقة تحويل</li>
+            <li><span class="ck">✓</span> حملات على جميع المنصات</li>
+            <li><span class="ck">✓</span> تصميم إعلانات غير محدود</li>
+            <li><span class="ck">✓</span> فيديوهات إعلانية قصيرة</li>
+            <li><span class="ck">✓</span> مدير حساب مخصص</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20هيمنة%20الإعلانية" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MANAGE -->
+    <div class="panel" id="panel-manage">
+      <div class="panel-head"><span class="pe">📱</span><h2 class="sec-title">باقات إدارة الحسابات</h2></div>
+      <p class="sec-sub">محتوى وإدارة احترافية تجعل حساباتك حيّة وجاذبة للعملاء.</p>
+      <div class="pkg-grid">
+
+        <div class="pkg">
+          <div class="pname">باقة حضور</div>
+          <div class="pdesc">بداية منظّمة لحساباتك على السوشيال.</div>
+          <div class="price"><span class="num">1,500</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ شهر · منصة واحدة</div>
+          <ul>
+            <li><span class="ck">✓</span> 12 منشورًا شهريًا</li>
+            <li><span class="ck">✓</span> تصميم متناسق مع هويتك</li>
+            <li><span class="ck">✓</span> كتابة المحتوى والهاشتاقات</li>
+            <li><span class="ck">✓</span> جدولة ونشر منتظم</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20حضور%20لإدارة%20الحسابات" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg featured">
+          <span class="tag">⭐ الأكثر طلباً</span>
+          <div class="pname">باقة تفاعل</div>
+          <div class="pdesc">إدارة فعّالة برفع للتفاعل ونمو المتابعين.</div>
+          <div class="price"><span class="num">2,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ شهر · منصتان</div>
+          <ul>
+            <li><span class="ck">✓</span> 20 منشورًا + 12 ستوري</li>
+            <li><span class="ck">✓</span> تصاميم وريلز قصيرة</li>
+            <li><span class="ck">✓</span> خطة محتوى شهرية</li>
+            <li><span class="ck">✓</span> الرد على التعليقات والرسائل</li>
+            <li><span class="ck">✓</span> تقرير أداء شهري</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20باقة%20تفاعل%20لإدارة%20الحسابات" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+        <div class="pkg">
+          <div class="pname">باقة احترافية</div>
+          <div class="pdesc">إدارة شاملة بمحتوى مصوّر وإعلانات.</div>
+          <div class="price"><span class="num">5,900</span><span class="cur">ر.س</span></div>
+          <div class="dur">⏱ شهر · جميع المنصات</div>
+          <ul>
+            <li><span class="ck">✓</span> كل ما في باقة تفاعل</li>
+            <li><span class="ck">✓</span> محتوى مصوّر احترافي</li>
+            <li><span class="ck">✓</span> إدارة إعلانات مدمجة</li>
+            <li><span class="ck">✓</span> استراتيجية نمو متكاملة</li>
+            <li><span class="ck">✓</span> مدير حساب مخصص</li>
+          </ul>
+          <a class="req" href="https://wa.me/966506039366?text=أرغب%20في%20الباقة%20الاحترافية%20لإدارة%20الحسابات" target="_blank" rel="noopener">اطلب الباقة 💬</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="center" style="max-width:640px">
+      <div class="eyebrow">أرقام تتحدث</div>
+      <h2 class="sec-title">نتائج نفخر بها مع عملائنا</h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat reveal"><div class="n" data-to="30" data-prefix="+">+0</div><div class="l">عميل</div></div>
+      <div class="stat reveal"><div class="n" data-to="98" data-suffix="%">0%</div><div class="l">رضا العملاء</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-prefix="+">+0</div><div class="l">متاجر إلكترونية</div></div>
+      <div class="stat reveal"><div class="n" data-to="10" data-prefix="+">+0</div><div class="l">مشاريع تصميم</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-prefix="+">+0</div><div class="l">حملات إعلانية</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-prefix="+">+0</div><div class="l">حسابات مُدارة</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="center" style="max-width:640px">
+      <div class="eyebrow">أعمالنا</div>
+      <h2 class="sec-title">شغل يتكلم عن نفسه</h2>
+      <p class="sec-sub center">نماذج من متاجر، هويات، وحملات صنعناها لعملائنا.</p>
+    </div>
+    <div class="pf-grid">
+      <div class="pf big reveal"><div class="art g1">🛍️</div><div class="meta"><div class="cat">متجر إلكتروني</div><h4>متجر أزياء — واجهة تبيع</h4></div></div>
+      <div class="pf reveal"><div class="art g4">🎨</div><div class="meta"><div class="cat">هوية بصرية</div><h4>هوية مقهى مختص</h4></div></div>
+      <div class="pf reveal"><div class="art g2">📊</div><div class="meta"><div class="cat">حملة إعلانية</div><h4>حملة مبيعات ×4 عائد</h4></div></div>
+      <div class="pf reveal"><div class="art g5">📱</div><div class="meta"><div class="cat">إدارة حسابات</div><h4>محتوى علامة تجميل</h4></div></div>
+      <div class="pf big reveal"><div class="art g3">🛒</div><div class="meta"><div class="cat">متجر إلكتروني</div><h4>متجر إلكترونيات متكامل</h4></div></div>
+      <div class="pf reveal"><div class="art g6">✨</div><div class="meta"><div class="cat">هوية بصرية</div><h4>هوية مطعم فاخر</h4></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="center" style="max-width:640px">
+      <div class="eyebrow">آراء العملاء</div>
+      <h2 class="sec-title">يثقون بحِرف</h2>
+    </div>
+    <div style="overflow:hidden">
+      <div class="rev-track" id="revTrack">
+        <div class="rev"><div class="stars">★★★★★</div><p>«حوّلوا فكرتي إلى متجر يبيع فعلاً. الاحترافية والسرعة فاقت توقعاتي.»</p><div class="who"><div class="av">م</div><div><b>محمد العتيبي</b><span>صاحب متجر أزياء</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>«الهوية البصرية اللي صمموها خلّت علامتي تبان أكبر من حجمها الحقيقي.»</p><div class="who"><div class="av">ن</div><div><b>نورة القحطاني</b><span>مؤسِّسة براند تجميل</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>«الحملة الإعلانية رجّعت تكلفتها أضعاف. فريق يفهم في المبيعات مو بس التصميم.»</p><div class="who"><div class="av">ف</div><div><b>فهد الشهري</b><span>تاجر إلكترونيات</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>«إدارة حساباتي صارت بأيدٍ أمينة. التفاعل والمتابعين في ازدياد كل شهر.»</p><div class="who"><div class="av">س</div><div><b>سارة الدوسري</b><span>صاحبة مشروع ناشئ</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>«تعاملت مع أكثر من جهة، وحِرف الوحيدين اللي التزموا بالموعد والجودة.»</p><div class="who"><div class="av">ع</div><div><b>عبدالله الحربي</b><span>صاحب متجر هدايا</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>«شغل نظيف وتواصل سهل عبر الواتساب من أول رسالة. أنصح بهم بقوة.»</p><div class="who"><div class="av">ر</div><div><b>ريم العنزي</b><span>مديرة تسويق</span></div></div></div>
+      </div>
+    </div>
+    <div class="rev-dots" id="revDots"></div>
+  </div>
+</section>
+
+<!-- CONVERSION -->
+<section class="convert">
+  <div class="wrap">
+    <div class="convert-box reveal">
+      <h2>جاهز تبدأ مشروعك؟</h2>
+      <p>سواء كنت تبدأ من الصفر أو تطوّر مشروعًا قائمًا، حِرف تساعدك على الوصول للمرحلة التالية.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/966506039366?text=أرغب%20في%20بدء%20مشروعي%20مع%20حِرف" target="_blank" rel="noopener">ابدأ مشروعك الآن 🚀</a>
+        <a class="btn btn-ghost" href="https://wa.me/966506039366?text=أرغب%20في%20التحدث%20مع%20فريق%20حِرف" target="_blank" rel="noopener">تحدث مع حِرف 💬</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a href="#top" class="brand"><span class="mark">حِ</span> حِرف</a>
+      <p style="color:var(--muted);max-width:260px">استوديو رقمي يصنع لك متاجر وهويات وحملات تبيع.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#top">الرئيسية</a>
+      <a href="#choices">الخدمات</a>
+      <a href="#choices">الباقات</a>
+      <a href="#portfolio">أعمالنا</a>
+      <a href="#reviews">آراء العملاء</a>
+      <a href="https://wa.me/966506039366" target="_blank" rel="noopener">سياسة الدفع</a>
+      <a href="https://wa.me/966506039366" target="_blank" rel="noopener">سياسة الخصوصية</a>
+    </div>
+    <div class="foot-contact">
+      <div>📞 <a href="https://wa.me/966506039366" target="_blank" rel="noopener" dir="ltr">+966 50 603 9366</a></div>
+      <div>✉️ <a href="mailto:byhirf@gmail.com">byhirf@gmail.com</a></div>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">© <span id="yr"></span> حِرف · جميع الحقوق محفوظة.</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa" href="https://wa.me/966506039366?text=السلام%20عليكم،%20أرغب%20في%20الاستفسار%20عن%20خدماتكم" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
+  <span class="tip">راسلنا على واتساب</span>
+  <svg viewBox="0 0 32 32"><path d="M16.04 4C9.93 4 4.98 8.95 4.98 15.06c0 2.05.56 4.05 1.62 5.82L4 28l7.3-1.92a11.04 11.04 0 0 0 4.74 1.07h.01c6.11 0 11.06-4.95 11.06-11.06C27.11 8.95 22.15 4 16.04 4zm6.45 15.83c-.27.76-1.58 1.46-2.18 1.51-.58.05-1.12.27-3.77-.79-3.18-1.25-5.2-4.5-5.36-4.71-.16-.21-1.29-1.71-1.29-3.26 0-1.55.81-2.31 1.1-2.63.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.27.66.92 2.27 1 2.43.08.16.13.35.03.56-.1.21-.16.35-.32.54-.16.18-.34.41-.48.55-.16.16-.33.34-.14.66.18.32.81 1.34 1.74 2.17 1.2 1.07 2.21 1.4 2.53 1.56.32.16.5.13.69-.08.18-.21.79-.92.99-1.24.21-.32.42-.27.71-.16.29.11 1.84.87 2.16 1.03.32.16.53.24.61.37.08.13.08.74-.19 1.5z"/></svg>
+</a>
+
+<script>
+// year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// nav scroll
+const nav = document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30));
+
+// choice expand
+const choices = document.querySelectorAll('.choice');
+const panels = document.querySelectorAll('.panel');
+choices.forEach(c=>{
+  c.addEventListener('click',()=>{
+    const t = c.dataset.target;
+    const panel = document.getElementById('panel-'+t);
+    const isOpen = panel.classList.contains('open');
+    panels.forEach(p=>p.classList.remove('open'));
+    choices.forEach(x=>x.classList.remove('active'));
+    if(!isOpen){
+      panel.classList.add('open');
+      c.classList.add('active');
+      setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}),80);
+    }
+  });
+});
+
+// reveal on scroll
+const io = new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); if(e.target.dataset.to){animate(e.target);} io.unobserve(e.target);} });
+},{threshold:.3});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// counters
+function animate(el){
+  const to = +el.dataset.to, pre = el.dataset.prefix||'', suf = el.dataset.suffix||'';
+  let cur = 0; const step = Math.max(1,Math.ceil(to/40));
+  const t = setInterval(()=>{ cur+=step; if(cur>=to){cur=to;clearInterval(t);} el.textContent = pre+cur+suf; },28);
+}
+
+// reviews slider
+const track = document.getElementById('revTrack');
+const dotsWrap = document.getElementById('revDots');
+const total = track.children.length;
+function perView(){ return innerWidth<=880?1:3; }
+let idx=0;
+function maxIdx(){ return Math.max(0,total-perView()); }
+function buildDots(){
+  dotsWrap.innerHTML='';
+  for(let i=0;i<=maxIdx();i++){ const d=document.createElement('i'); d.onclick=()=>{idx=i;render();}; dotsWrap.appendChild(d); }
+}
+function render(){
+  if(idx>maxIdx())idx=0;
+  const card = track.children[0].getBoundingClientRect().width + 24;
+  track.style.transform = `translateX(${idx*card}px)`;
+  [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('on',i===idx));
+}
+buildDots(); render();
+setInterval(()=>{ idx = idx>=maxIdx()?0:idx+1; render(); },4000);
+addEventListener('resize',()=>{ buildDots(); render(); });
+</script>
+</body>
+</html>
