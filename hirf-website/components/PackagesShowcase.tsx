@@ -46,12 +46,16 @@ function Card({
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: EASE }}
-      className={`relative flex h-full flex-col rounded-3xl border bg-[var(--color-canvas)] p-7 transition-shadow ${
+      className={`relative flex h-full flex-col rounded-3xl border p-7 transition-shadow ${
+        pkg.premium ? "bg-[var(--color-accent)]/8" : "bg-[var(--color-canvas)]"
+      } ${
         highlighted
           ? "border-[var(--color-accent)] ring-4 ring-[var(--color-accent)]/30"
-          : pkg.popular
+          : pkg.premium
             ? "border-[var(--color-accent)] shadow-[var(--shadow-lift)]"
-            : "border-[var(--color-ink)]/12 shadow-[var(--shadow-soft)]"
+            : pkg.popular
+              ? "border-[var(--color-accent)] shadow-[var(--shadow-lift)]"
+              : "border-[var(--color-ink)]/12 shadow-[var(--shadow-soft)]"
       }`}
     >
       {pkg.popular && (
@@ -60,7 +64,19 @@ function Card({
         </span>
       )}
 
+      {pkg.premium && (
+        <span className="absolute -top-3 right-6 rounded-full bg-[var(--color-ink)] px-4 py-1 text-sm font-medium text-[var(--color-canvas)] shadow">
+          التجربة الأكمل
+        </span>
+      )}
+
       <h4 className="font-display text-2xl text-[var(--color-ink)]">{pkg.name}</h4>
+
+      {pkg.headline && (
+        <p className="mt-2 border-r-2 border-[var(--color-accent)] pr-3 font-display text-base leading-snug text-[var(--color-accent)]">
+          {gk(pkg.headline)}
+        </p>
+      )}
 
       {(pkg.price || pkg.duration) && (
         <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -82,6 +98,24 @@ function Card({
             </li>
           ))}
         </ul>
+      ) : null}
+
+      {pkg.featureGroups?.length ? (
+        <div className="mt-5 space-y-4">
+          {pkg.featureGroups.map((group) => (
+            <div key={group.title}>
+              <p className="mb-2 font-display text-sm font-medium text-[var(--color-ink)]">{group.title}</p>
+              <ul className="space-y-2">
+                {group.items.map((f) => (
+                  <li key={f} className="flex gap-2 text-sm leading-relaxed text-[var(--color-ink)]">
+                    <span className="mt-0.5 shrink-0 text-[var(--color-accent)]" aria-hidden>✓</span>
+                    <span>{gk(f)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       ) : null}
 
       {pkg.guarantees?.length ? (
