@@ -9,7 +9,7 @@ const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   display: "swap",
 });
 
-const SITE_URL = "https://hirf.example";
+const SITE_URL = "https://byhirf.com";
 
 export const metadata: Metadata = {
   verification: {
