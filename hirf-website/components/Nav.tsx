@@ -3,11 +3,11 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const LINKS = [
-  { href: "#about", label: "من نحن" },
-  { href: "#packages", label: "الباقات" },
-  { href: "#work", label: "أعمالنا" },
-  { href: "#testimonials", label: "آراء العملاء" },
-  { href: "#faq", label: "الأسئلة" },
+  { href: "/#about", label: "من نحن" },
+  { href: "/#packages", label: "الباقات" },
+  { href: "/#work", label: "أعمالنا" },
+  { href: "/#testimonials", label: "آراء العملاء" },
+  { href: "/#faq", label: "الأسئلة" },
 ];
 
 export default function Nav() {
@@ -22,7 +22,7 @@ export default function Nav() {
       />
       <header className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
         <nav className="glass flex w-full max-w-5xl items-center justify-between rounded-full px-5 py-2.5 shadow-[var(--shadow-soft)]">
-          <a href="#main" className="flex shrink-0 items-center gap-2" aria-label="حِرف — الصفحة الرئيسية">
+          <a href="/#main" className="flex shrink-0 items-center gap-2" aria-label="حِرف — الصفحة الرئيسية">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/hirf-logo.png?v=2"
@@ -45,7 +45,7 @@ export default function Nav() {
             ))}
           </ul>
           <a
-            href="#packages"
+            href="/#packages"
             className="rounded-full bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-[var(--color-canvas)] transition-transform hover:scale-105"
           >
             ابدأ مشروعك

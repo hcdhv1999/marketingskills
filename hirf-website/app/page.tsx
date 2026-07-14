@@ -14,10 +14,46 @@ import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { ExperienceProvider } from "@/components/ExperienceContext";
+import { whatsappLink } from "@/lib/whatsapp";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "حِرف",
+  alternateName: "Hirf",
+  url: "https://byhirf.com",
+  description:
+    "حِرف وكالة رقمية سعودية متخصصة في تصميم وتأسيس المتاجر الإلكترونية، الهوية البصرية، والحملات الإعلانية.",
+  email: "byhirf@gmail.com",
+  areaServed: { "@type": "Country", name: "المملكة العربية السعودية" },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+966506039366",
+    contactType: "sales",
+    areaServed: "SA",
+    availableLanguage: "Arabic",
+  },
+  knowsAbout: ["تصميم متاجر إلكترونية", "هوية بصرية", "حملات إعلانية"],
+  makesOffer: [
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "تصميم وتأسيس المتاجر الإلكترونية" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "الهوية البصرية والتصميم الجرافيكي" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "الحملات الإعلانية" } },
+  ],
+  sameAs: [
+    "https://instagram.com/hirf_sa",
+    "https://www.tiktok.com/@hirf_sa",
+    "https://x.com/hirf_sa",
+    whatsappLink("استشارة عامة"),
+  ],
+};
 
 export default function Home() {
   return (
     <ExperienceProvider>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       <AbstractBackground />
       <Nav />
       <main id="main" className="relative">

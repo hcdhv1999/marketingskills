@@ -384,6 +384,18 @@ export default function PackagesShowcase() {
           })}
         </div>
 
+        {/* Internal link — dedicated ecommerce service page (stores only) */}
+        {serviceId === "stores" && (
+          <div className="mt-6 text-center">
+            <a
+              href="/ecommerce"
+              className="text-sm font-medium text-[var(--color-accent)] transition-opacity hover:opacity-80"
+            >
+              اقرأ التفاصيل الكاملة: تصميم وتأسيس متاجر سلة وزد ←
+            </a>
+          </div>
+        )}
+
         {/* Level 2 — sub-category tabs */}
         {hasTabs && (
           <div className="mt-8 flex flex-wrap justify-center gap-2">
